@@ -21,6 +21,11 @@ By the end of this week, you should be comfortable writing small automation scri
 - Virtual environments
 - pip
 
+## Checklist
+- [x] Environment Setup
+- [x] Assignment 1
+- [x] Assignment 2
+
 ---
 
 ## Environment Setup
@@ -121,6 +126,11 @@ Topics:
 - Reading files
 - Writing files
 - Traversing directories
+
+## Checklist
+- [ ] Assignment 1
+- [ ] Assignment 2
+- [ ] Assignment 3
 
 ---
 
