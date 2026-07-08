@@ -1,0 +1,10 @@
+{
+    "Total files": 4,
+    "Total patients": 2,
+    "List of filenames": [
+        "Patient001_L001_R1.fastq.gz",
+        "Patient001_L001_R2.fastq.gz",
+        "Patient002_L001_R1.fastq.gz",
+        "Patient002_L001_R2.fastq.gz"
+    ]
+}

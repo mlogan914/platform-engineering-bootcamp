@@ -25,6 +25,7 @@ By the end of this week, you should be comfortable writing small automation scri
 - [x] Environment Setup
 - [x] Assignment 1
 - [x] Assignment 2
+- [x] Stretch Goal
 
 ---
 
@@ -128,9 +129,10 @@ Topics:
 - Traversing directories
 
 ## Checklist
-- [ ] Assignment 1
-- [ ] Assignment 2
-- [ ] Assignment 3
+- [x] Assignment 1
+- [x] Assignment 2
+- [x] Assignment 3
+- [ ] Stretch Goal
 
 ---
 

@@ -91,7 +91,6 @@ def load_runs():
 ]
     return runs
 
-
 def count_samples(runs):
     total_samples = 0
 
@@ -131,5 +130,26 @@ def main():
     print(f"Average samples per run: {average_samples(runs)}")
 
 main()
+
+# ===============================================
+# -- Stretch Goal --
+# ===============================================
+from pathlib import Path
+import json
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+OUTPUT_FILE = BASE_DIR / "day01" / "sorted.json"
+
+print(BASE_DIR)
+print(OUTPUT_FILE)
+
+runs = load_runs()
+
+runs.sort(key=lambda run: run["sample_count"])
+
+print(runs)
+
+with open(OUTPUT_FILE, "w") as f:
+    json.dump(runs, f, indent=4)
 
 ### --- End of Program Code --- ###

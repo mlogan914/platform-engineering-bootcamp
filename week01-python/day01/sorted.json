@@ -1,0 +1,26 @@
+[
+    {
+        "run_id": "RUN002",
+        "project_name": "Rare Disease",
+        "status": "Running",
+        "sample_count": 12
+    },
+    {
+        "run_id": "RUN001",
+        "project_name": "Cancer Study",
+        "status": "Completed",
+        "sample_count": 24
+    },
+    {
+        "run_id": "RUN003",
+        "project_name": "Lung Biomarkers",
+        "status": "Completed",
+        "sample_count": 48
+    },
+    {
+        "run_id": "RUN004",
+        "project_name": "Whole Genome",
+        "status": "Queued",
+        "sample_count": 96
+    }
+]
