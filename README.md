@@ -1,488 +1,225 @@
-# Week 1 – Python for Platform Engineers
+# Platform Engineering Fundamentals Bootcamp
 
-## Goal
+## Overview
 
-By the end of this week, you should be comfortable writing small automation scripts that interact with files, configuration, the operating system, and AWS.
+This repository documents my self-guided Platform Engineering Bootcamp focused on building strong engineering fundamentals.
 
-> **Objective:** Learn to solve platform engineering problems with Python.
+The goal of this project is to understand how modern technologies work together to build, deploy, and operate cloud platforms.
+
+Each week focuses on realistic engineering exercises that mirror the types of tasks performed by platform engineering teams. Rather than completing isolated tutorials, the emphasis is on building practical skills through hands-on projects that simulate real-world engineering work.
 
 ---
 
-# Day 1 – Python Refresher
+# Learning Goals
 
-## Learning Objectives
+- Python automation
+- Linux administration
+- Git workflows
+- Docker
+- Terraform
+- AWS platform services
+- Infrastructure as Code
+- Cloud-native automation
+- Debugging and troubleshooting
+- Building maintainable engineering tools
 
-- Variables
-- Lists
-- Dictionaries
+---
+
+# Bootcamp Roadmap
+
+## Week 1 – Python for Platform Engineers
+
+**Objective**
+
+Learn to solve platform engineering problems using Python.
+
+### Topics
+
+- Python fundamentals
 - Functions
-- Imports
-- Loops
-- Virtual environments
-- pip
+- File handling
+- JSON
+- YAML
+- Logging
+- argparse
+- pathlib
+- boto3
+- Exception handling
+
+### Project
+
+Build a command-line utility that validates sequencing data, generates reports, and uploads files to Amazon S3.
 
 ---
 
-## Environment Setup
+## Week 2 – Linux Fundamentals
 
-Create a project called:
+**Objective**
+
+Become comfortable working in Linux as a platform engineer.
+
+### Topics
+
+- Filesystem navigation
+- Permissions
+- Users and groups
+- Processes
+- SSH
+- Networking
+- Logs
+- System troubleshooting
+
+### Project
+
+Diagnose and repair common Linux system issues.
+
+---
+
+## Week 3 – Git & Docker
+
+**Objective**
+
+Learn the development workflow used by platform engineering teams.
+
+### Git
+
+- Branching
+- Merging
+- Rebasing
+- Pull Requests
+- Merge conflicts
+
+### Docker
+
+- Images
+- Containers
+- Dockerfiles
+- Volumes
+- Environment variables
+- Container debugging
+
+### Project
+
+Containerize the Python automation project.
+
+---
+
+## Week 4 – Terraform
+
+**Objective**
+
+Review Infrastructure as Code.
+
+### Topics
+
+- Providers
+- Resources
+- Variables
+- Outputs
+- Modules
+- State
+- Remote State
+- Debugging Terraform
+
+### Project
+
+Deploy AWS infrastructure using reusable Terraform modules.
+
+---
+
+## Week 5 – AWS Platform Services
+
+**Objective**
+
+Understand/review the AWS services commonly used by platform engineering teams.
+
+### Topics
+
+- IAM
+- S3
+- EC2
+- ECS
+- ECR
+- AWS Batch
+- CloudWatch
+
+### Project
+
+Deploy and operate a simple cloud platform using AWS services.
+
+---
+
+## Week 6 – Platform Engineering Integration Project
+
+**Objective**
+
+Combine everything learned throughout the bootcamp.
+
+### Final Project
+
+Build a simplified platform that:
+
+- Reads configuration files
+- Validates sequencing data
+- Uploads files to Amazon S3
+- Runs inside Docker
+- Uses Git for source control
+- Deploys infrastructure with Terraform
+- Logs application activity
+- Produces execution reports
+
+---
+
+# Repository Structure
 
 ```text
-platform_python_week1
-```
-
-Create a virtual environment:
-
-```bash
-python -m venv .venv
-```
-
-Activate the environment.
-
-Install PyYAML:
-
-```bash
-pip install pyyaml
-```
-
----
-
-## Assignment 1 – Sequencing Run Inventory
-
-Create:
-
-```text
-inventory.py
-```
-
-Pretend you're supporting a sequencing platform.
-
-Create a collection of sequencing runs.
-
-Each run should contain:
-
-- Run ID
-- Project Name
-- Status
-- Number of Samples
-
-Store each run as a dictionary.
-
-Store all runs inside a list.
-
-### Print
-
-- Total number of runs
-- Total number of samples
-- Only completed runs
-- Average samples per run
-
----
-
-## Assignment 2 – Refactor into Functions
-
-Move your logic into functions.
-
-Suggested functions:
-
-```python
-load_runs()
-
-count_samples()
-
-completed_runs()
-
-average_samples()
+platform-engineering-bootcamp/
+│
+├── README.md
+│
+├── week01-python/
+│
+├── week02-linux/
+│
+├── week03-git-docker/
+│
+├── week04-terraform/
+│
+├── week05-aws/
+│
+└── week06-platform-project/
 ```
 
 ---
 
-## Stretch Goal
+# Development Workflow
 
-Sort sequencing runs by sample count.
+For each assignment I will:
 
----
+1. Create a feature branch.
+2. Complete the exercise.
+3. Commit changes with meaningful commit messages.
+4. Open a pull request.
+5. Review and improve the code.
+6. Merge into the `main` branch.
 
-# Day 2 – Working with Files
-
-## Learning Objectives
-
-### Modules
-
-```python
-pathlib
-json
-csv
-yaml
-```
-
-Topics:
-
-- Reading files
-- Writing files
-- Traversing directories
+The goal is to practice the same workflow commonly used by engineering teams.
 
 ---
 
-## Assignment 1 – Create Sample Data
+# Guiding Principles
 
-Create a folder:
+Throughout this bootcamp focus on:
 
-```text
-incoming_data
-```
+- Writing readable code.
+- Building maintainable solutions.
+- Understanding why technologies exist.
+- Solving real engineering problems.
+- Developing practical troubleshooting skills.
+- Learning by building instead of memorizing.
 
-Inside it create fake FASTQ files.
+Whenever possible, each exercise should answer one question:
 
-Example:
+> **Would I realistically encounter this problem as a Platform Engineer?**
 
-```text
-Patient001_L001_R1.fastq.gz
-Patient001_L001_R2.fastq.gz
-Patient002_L001_R1.fastq.gz
-Patient002_L001_R2.fastq.gz
-```
-
-The files can be empty.
-
----
-
-## Assignment 2 – Scan a Directory
-
-Create:
-
-```text
-scan_fastqs.py
-```
-
-Use:
-
-```python
-from pathlib import Path
-```
-
-Your script should:
-
-- Find every FASTQ file
-- Count them
-- Print filenames
-- Count unique patients
-- Count R1 files
-- Count R2 files
-
----
-
-## Assignment 3 – Produce JSON Output
-
-Generate:
-
-```text
-summary.json
-```
-
-Include:
-
-- Total files
-- Total patients
-- List of filenames
-
-Hint:
-
-```python
-import json
-
-json.dump(...)
-```
-
----
-
-## Stretch Goal
-
-Generate:
-
-```text
-summary.yaml
-```
-
-Module:
-
-```python
-import yaml
-
-yaml.dump(...)
-```
-
----
-
-# Day 3 – Building Automation
-
-## Learning Objectives
-
-### Modules
-
-```python
-argparse
-logging
-subprocess
-```
-
----
-
-## Assignment 1 – Command Line Utility
-
-Create:
-
-```text
-pipeline_launcher.py
-```
-
-Accept two command line arguments:
-
-```text
---project
-```
-
-```text
---input-folder
-```
-
-Hint:
-
-```python
-import argparse
-
-ArgumentParser(...)
-```
-
----
-
-## Assignment 2 – Validate User Input
-
-Verify:
-
-- Folder exists
-- Project name isn't empty
-
-Hint:
-
-```python
-Path.exists()
-```
-
-Display useful error messages.
-
----
-
-## Assignment 3 – Logging
-
-Create:
-
-```text
-pipeline.log
-```
-
-Log:
-
-- Start time
-- User inputs
-- Success
-- Errors
-
-Module:
-
-```python
-logging
-```
-
----
-
-## Assignment 4 – Launch a Process
-
-Pretend you're launching a Nextflow workflow.
-
-Instead, execute:
-
-```bash
-echo
-```
-
-using:
-
-```python
-subprocess.run(...)
-```
-
-Display:
-
-```text
-Launching workflow...
-```
-
----
-
-## Stretch Goal
-
-- Catch exceptions
-- Log failures
-- Exit gracefully
-
----
-
-# Day 4 – AWS with Python
-
-## Learning Objectives
-
-### Modules
-
-```python
-boto3
-pathlib
-```
-
-Install:
-
-```bash
-pip install boto3
-```
-
----
-
-## Assignment 1 – AWS Credentials
-
-Verify that your script can connect to AWS using your configured credentials.
-
----
-
-## Assignment 2 – Upload to S3
-
-Create:
-
-```text
-upload.py
-```
-
-Research:
-
-```python
-boto3.client()
-
-upload_file()
-```
-
-Upload one file.
-
----
-
-## Assignment 3 – List Objects
-
-List every object inside an S3 bucket.
-
-Research:
-
-```python
-list_objects_v2()
-```
-
----
-
-## Assignment 4 – Download an Object
-
-Research:
-
-```python
-download_file()
-```
-
-Download one object.
-
----
-
-## Stretch Goal
-
-Create:
-
-```python
-upload_folder()
-```
-
-Upload every file inside a directory.
-
----
-
-# Day 5 – Mini Project
-
-# Bioinformatics Upload Utility
-
-Pretend scientists need to upload sequencing runs to AWS.
-
-Create a command-line utility.
-
-Suggested project structure:
-
-```text
-main.py
-config.yaml
-uploader.py
-validator.py
-logger.py
-utils.py
-```
-
----
-
-## Requirements
-
-Your application should:
-
-- Read configuration from YAML
-- Validate folders
-- Count sequencing files
-- Produce a JSON summary
-- Upload every file to S3
-- Log every action
-- Handle missing folders gracefully
-- Print a final summary report
-
----
-
-## Suggested Python Modules
-
-```python
-pathlib
-json
-yaml
-logging
-argparse
-boto3
-datetime
-os
-sys
-```
-
----
-
-# Bonus Challenges
-
-Choose one or two if you finish early.
-
-- Display upload progress
-- Skip duplicate uploads
-- Retry failed uploads
-- Display upload statistics
-- Make the project installable and runnable by another engineer
-
----
-
-# Weekly Success Criteria
-
-By the end of the week you should be comfortable:
-
-- Organizing Python into multiple modules
-- Reading and writing JSON
-- Reading and writing YAML
-- Traversing directories with `pathlib`
-- Building CLI applications with `argparse`
-- Creating structured logs with `logging`
-- Handling exceptions
-- Uploading and downloading files from S3 using `boto3`
-- Writing maintainable automation scripts
+If the answer is **yes**, it belongs in this repository.
