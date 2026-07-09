@@ -1,0 +1,11 @@
+2026-07-09 15:08:40,135 - INFO - info message
+2026-07-09 15:08:40,136 - WARNING - warning message
+2026-07-09 15:08:40,137 - ERROR - error message
+2026-07-09 15:08:40,137 - CRITICAL - critical message
+2026-07-09 15:08:40,137 - INFO - the value of x is 2
+2026-07-09 15:08:40,137 - ERROR - ZeroDivisionError
+Traceback (most recent call last):
+  File "/home/mlogan/platform_practice/week01-python/day03/logger.py", line 42, in <module>
+    1 / 0
+ZeroDivisionError: division by zero
+2026-07-09 15:08:40,138 - INFO - test the custom logger
