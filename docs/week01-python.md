@@ -132,7 +132,7 @@ Topics:
 - [x] Assignment 1
 - [x] Assignment 2
 - [x] Assignment 3
-- [ ] Stretch Goal
+- [x] Stretch Goal
 
 ---
 
@@ -237,7 +237,12 @@ argparse
 logging
 subprocess
 ```
-
+## Checklist
+- [ ] Assignment 1
+- [ ] Assignment 2
+- [ ] Assignment 3
+- [ ] Assignment 4
+- [ ] Stretch Goal
 ---
 
 ## Assignment 1 – Command Line Utility
