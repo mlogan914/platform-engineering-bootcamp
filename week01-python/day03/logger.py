@@ -2,6 +2,11 @@
 # -- Assignment 3 – Logging --
 # ===============================================
 import logging
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+LOG_PATH = BASE_DIR / "day03"
+
 '''
 Source Lesson:
 https://www.youtube.com/watch?v=urrfJgHwIJA
@@ -24,7 +29,7 @@ CRITICAL:root:critical message
 
 '''
 
-logging.basicConfig(level=logging.INFO, filename="pipeline.log", filemode="w",
+logging.basicConfig(level=logging.INFO, filename=LOG_PATH / "pipeline.log", filemode="w",
                     format="%(asctime)s - %(levelname)s - %(message)s") # ERROR and above
 
 logging.debug("debug message")
@@ -33,18 +38,18 @@ logging.warning("warning message")
 logging.error("error message")
 logging.critical("critical message")
 
-# embed variable
+# Embed variable
 x=2
 logging.info(f"the value of x is {x}")
 
-# log exception traceback
+# Log exception traceback
 try:
     1 / 0
 except ZeroDivisionError as e:
     logging.exception("ZeroDivisionError")
 
 
-# custom logger
+# Custom logger
 '''
 - handler allows us to configure logger
 - create a formatter for the custom logger
@@ -52,10 +57,12 @@ except ZeroDivisionError as e:
 - add the handler to the logger
 '''
 logger = logging.getLogger(__name__) # name of the current module
-handler = logging.FileHandler('custom_log.log', mode="w")
+handler = logging.FileHandler(LOG_PATH / 'custom_log.log', mode="w")
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 logger.info("test the custom logger")
+
+### -- Enf of Program Code -- ##

@@ -1,0 +1,11 @@
+2026-07-09 20:29:23,401 - INFO - info message
+2026-07-09 20:29:23,401 - WARNING - warning message
+2026-07-09 20:29:23,402 - ERROR - error message
+2026-07-09 20:29:23,402 - CRITICAL - critical message
+2026-07-09 20:29:23,402 - INFO - the value of x is 2
+2026-07-09 20:29:23,402 - ERROR - ZeroDivisionError
+Traceback (most recent call last):
+  File "/PATH/logger.py", line 47, in <module>
+    1 / 0
+ZeroDivisionError: division by zero
+2026-07-09 20:29:23,402 - INFO - test the custom logger
