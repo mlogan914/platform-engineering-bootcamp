@@ -370,11 +370,11 @@ pathlib
 ```
 
 ## Progress
-- [ ] Assignment 1
-- [ ] Assignment 2
-- [ ] Assignment 3
-- [ ] Assignment 4
-- [ ] Stretch Goal
+- [X] Assignment 1
+- [X] Assignment 2
+- [X] Assignment 3
+- [X] Assignment 4
+- [X] Stretch Goal
 
 Install:
 
