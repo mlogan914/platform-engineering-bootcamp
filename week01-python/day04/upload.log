@@ -1,0 +1,4 @@
+2026-07-10 18:55:07,639 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2026-07-10 18:55:08,374 - INFO - File Patient001_L001_R1.fastq.gz sucessfully uploaded to appdata-5201201
+2026-07-10 18:55:08,782 - INFO - File raw_wearable_device_02102023.csv sucessfully downloaded to appdata-5201201
+2026-07-10 18:55:09,531 - INFO - 4 files sucsesfully uploaded to appdata-5201201
