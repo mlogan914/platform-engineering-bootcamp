@@ -1,5 +1,5 @@
 # ===============================================
-# -Assignment 1 – AWS Credentials
+# - Assignment 1 – AWS Credentials
 # ===============================================
 import boto3
 from pathlib import Path
@@ -15,7 +15,9 @@ logging.basicConfig(level=logging.INFO, filename=LOG_PATH / "upload.log", filemo
 
 s3 = boto3.resource('s3')
 
-# List objects
+# ===============================================
+# - Assignment 3 – List Objects
+# ===============================================
 # for bucket in s3.buckets.all():
 #     print(bucket.name)
 
@@ -23,8 +25,9 @@ def list_objects():
     print("\nExisting s3 buckets:")
     for bucket in s3.buckets.all():
         print(bucket.name)
-
-# # Upload a new file
+# ===============================================
+# - Assignment 2 – Upload to S3
+# ===============================================
 # with open(INPUT_DIR / 'Patient001_L001_R1.fastq.gz', 'rb') as data:
 #     s3.Bucket('appdata-5201201').put_object(Key='Patient001_L001_R1.fastq.gz', Body=data)
 
@@ -34,7 +37,9 @@ def upload_file(INPUT_DIR, file, bucket):
         s3.Bucket(bucket).put_object(Key=file, Body=data)
         logging.info(f"File {file} sucessfully uploaded to {bucket}")
 
-# # Download a file
+# ===============================================
+# - Assignment 4 – Download an Object
+# ===============================================
 # s3 = boto3.client('s3')
 # with open(INPUT_DIR / 'raw_wearable_device_02102023.csv', 'wb') as f:
 #     s3.download_fileobj('appdata-5201201', 'raw_wearable_device_02102023.csv', f)
