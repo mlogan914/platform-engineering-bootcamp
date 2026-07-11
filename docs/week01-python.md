@@ -1,4 +1,5 @@
-# Week 1 – Python for Platform Engineers
+<details open>
+<summary><strong>Week 1 – Python for Platform Engineers</strong></summary>
 
 ## Goal
 
@@ -8,7 +9,8 @@ By the end of this week, you should be comfortable writing small automation scri
 
 ---
 
-# Day 1 – Python Refresher
+<details>
+<summary><strong>Day 1 – Python Refresher</strong></summary>
 
 ## Learning Objectives
 
@@ -21,7 +23,7 @@ By the end of this week, you should be comfortable writing small automation scri
 - Virtual environments
 - pip
 
-## Checklist
+## Progress
 - [x] Environment Setup
 - [x] Assignment 1
 - [x] Assignment 2
@@ -107,9 +109,12 @@ average_samples()
 
 Sort sequencing runs by sample count.
 
+</details>
+
 ---
 
-# Day 2 – Working with Files
+<details>
+<summary><strong>Day 2 – Working with Files</strong></summary>
 
 ## Learning Objectives
 
@@ -128,11 +133,11 @@ Topics:
 - Writing files
 - Traversing directories
 
-## Checklist
+## Progress
 - [x] Assignment 1
 - [x] Assignment 2
 - [x] Assignment 3
-- [ ] Stretch Goal
+- [x] Stretch Goal
 
 ---
 
@@ -224,9 +229,12 @@ import yaml
 yaml.dump(...)
 ```
 
+</details>
+
 ---
 
-# Day 3 – Building Automation
+<details>
+<summary><strong>Day 3 – Building Automation</strong></summary>
 
 ## Learning Objectives
 
@@ -237,6 +245,13 @@ argparse
 logging
 subprocess
 ```
+
+## Progress
+- [X] Assignment 1
+- [X] Assignment 2
+- [X] Assignment 3
+- [X] Assignment 4
+- [X] Stretch Goal
 
 ---
 
@@ -338,9 +353,12 @@ Launching workflow...
 - Log failures
 - Exit gracefully
 
+</details>
+
 ---
 
-# Day 4 – AWS with Python
+<details>
+<summary><strong>Day 4 – AWS with Python</strong></summary>
 
 ## Learning Objectives
 
@@ -350,6 +368,13 @@ Launching workflow...
 boto3
 pathlib
 ```
+
+## Progress
+- [ ] Assignment 1
+- [ ] Assignment 2
+- [ ] Assignment 3
+- [ ] Assignment 4
+- [ ] Stretch Goal
 
 Install:
 
@@ -419,9 +444,12 @@ upload_folder()
 
 Upload every file inside a directory.
 
+</details>
+
 ---
 
-# Day 5 – Mini Project
+<details>
+<summary><strong>Day 5 – Mini Project</strong></summary>
 
 # Bioinformatics Upload Utility
 
@@ -471,6 +499,8 @@ os
 sys
 ```
 
+</details>
+
 ---
 
 # Bonus Challenges
@@ -498,3 +528,5 @@ By the end of the week you should be comfortable:
 - Handling exceptions
 - Uploading and downloading files from S3 using `boto3`
 - Writing maintainable automation scripts
+
+</details>
