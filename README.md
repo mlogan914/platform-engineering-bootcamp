@@ -104,7 +104,45 @@ Containerize the Python automation project.
 
 ---
 
-## Week 4 – Terraform
+## Week 4 – CI/CD with GitHub Actions
+
+### Objective
+
+Automate validation, testing, packaging, and deployment workflows.
+
+### Topics
+
+- CI vs CD
+- GitHub Actions workflow syntax
+- Events and triggers
+- Jobs and steps
+- GitHub-hosted runners
+- Environment variables
+- Secrets
+- Dependency installation
+- Python linting and testing
+- Docker image builds
+- Workflow artifacts
+- Branch protection and required checks
+- Environments and deployment approvals
+- AWS authentication using OIDC
+
+### Project
+
+Create a GitHub Actions pipeline that:
+
+- Runs on pull requests and pushes
+- Sets up Python
+- Installs dependencies
+- Runs tests
+- Runs linting
+- Validates the application
+- Builds the Docker image
+- Uploads reports as workflow artifacts
+- Prevents merging when checks fail
+---
+
+## Week 5 – Terraform
 
 **Objective**
 
@@ -127,7 +165,7 @@ Deploy AWS infrastructure using reusable Terraform modules.
 
 ---
 
-## Week 5 – AWS Platform Services
+## Week 6 – AWS Platform Services
 
 **Objective**
 
@@ -149,7 +187,7 @@ Deploy and operate a simple cloud platform using AWS services.
 
 ---
 
-## Week 6 – Platform Engineering Integration Project
+## Week 7 – Platform Engineering Integration Project
 
 **Objective**
 
@@ -183,11 +221,13 @@ platform-engineering-bootcamp/
 │
 ├── week03-git-docker/
 │
-├── week04-terraform/
+├── week04-cicd/
 │
-├── week05-aws/
+├── week05-terraform/
 │
-└── week06-platform-project/
+├── week06-aws/
+│
+└── week07-platform-project/
 ```
 
 ---
