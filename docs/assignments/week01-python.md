@@ -1,5 +1,5 @@
-<details open>
-<summary><strong>Week 1 – Python for Platform Engineers</strong></summary>
+
+# Week 1 – Python for Platform Engineers
 
 ## Goal
 
@@ -528,5 +528,9 @@ By the end of the week you should be comfortable:
 - Handling exceptions
 - Uploading and downloading files from S3 using `boto3`
 - Writing maintainable automation scripts
+
+# Progress
+- [x] Week 1 Project
+- [ ] Bonus Challenges
 
 </details>
