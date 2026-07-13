@@ -1,17 +1,17 @@
 
-========================================
- Bioinformatics Upload Summary
-========================================
-Project:        VEXIN-03
-Input Folder:   incoming_data
-S3 Bucket:      appdata-5201201
-S3 Prefix:      sequencing-runs/VEXIN-03
+    ========================================
+    Bioinformatics Upload Summary
+    ========================================
+    Project:        VEXIN-03
+    Input Folder:   incoming_data
+    S3 Bucket:      appdata-5201201
+    S3 Prefix:      sequencing-runs/VEXIN-03
 
-FASTQ Files Found:      4
-Files Uploaded:         4
-Summary File:           summary.json
-Log File:               upload.log
+    FASTQ Files Found:      4
+    Files Uploaded:         4
+    Summary File:           summary.json
+    Log File:               upload.log
 
-Status: SUCCESS
-========================================
+    Status: SUCCESS
+    ========================================
     

@@ -1,5 +1,5 @@
-2026-07-12 21:27:39,633 - INFO - Config successfully loaded: {'project_name': 'VEXIN-03', 'input_folder': 'incoming_data', 's3_bucket': 'appdata-5201201', 's3_prefix': 'sequencing-runs/VEXIN-03', 'summary_file': 'summary.json', 'log_file': 'upload.log'}
-2026-07-12 21:27:39,634 - INFO - Found 4 sequencing files
-2026-07-12 21:27:39,635 - INFO - Summary written to /home/mlogan/platform_practice/week01-python/day05/summary.json
-2026-07-12 21:27:39,680 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
-2026-07-12 21:27:40,915 - INFO - 4 files successfully uploaded to appdata-5201201
+2026-07-12 23:02:52,947 - INFO - Config successfully loaded: {'project_name': 'VEXIN-03', 'input_folder': 'incoming_data', 's3_bucket': 'appdata-5201201', 's3_prefix': 'sequencing-runs/VEXIN-03', 'summary_file': 'summary.json', 'report_file': 'status_report.txt', 'log_file': 'upload.log'}
+2026-07-12 23:02:52,949 - INFO - Found 4 sequencing files
+2026-07-12 23:02:52,954 - INFO - Summary written to /home/mlogan/platform_practice/week01-python/day05/summary.json
+2026-07-12 23:02:52,996 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2026-07-12 23:02:54,041 - INFO - 4 files successfully uploaded to appdata-5201201
