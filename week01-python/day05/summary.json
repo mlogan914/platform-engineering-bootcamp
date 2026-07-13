@@ -1,0 +1,13 @@
+{
+    "project_name": "VEXIN-03",
+    "input_folder": "/home/mlogan/platform_practice/week01-python/day05/incoming_data",
+    "file_count": 4,
+    "files": [
+        "Patient002_L001_R1.fastq.gz",
+        "Patient001_L001_R1.fastq.gz",
+        "Patient002_L001_R2.fastq.gz",
+        "Patient001_L001_R2.fastq.gz"
+    ],
+    "s3_bucket": "appdata-5201201",
+    "s3_prefix": "sequencing-runs/VEXIN-03"
+}
