@@ -3,10 +3,11 @@
 A quick-reference guide for common Linux concepts and commands.
 
 ---
+<details>
+<summary><strong>Day 1 – Filesystem & Navigation</strong></summary>
 
-# Day 1 – Filesystem & Navigation
-
-## Linux File Hierarchy
+<details>
+<summary><strong>Linux File Hierarchy</strong></summary>
 
 ```mermaid
 flowchart LR
@@ -60,8 +61,10 @@ flowchart LR
 | `/usr` | User applications and utilities |
 
 ---
+</details>
 
-# Absolute vs Relative Paths
+<details>
+<summary><strong>Absolute vs Relative Paths</strong></summary>
 
 ## Absolute Path
 
@@ -178,10 +181,13 @@ cd ~
 - Prefer relative paths while navigating projects.
 
 ---
+</details>
 
-# Linux Tips & Shortcuts
+<details>
+<summary><strong>Linux Tips & Shortcuts</strong></summary>
 
-## Getting Help
+<details>
+<summary><strong>Getting Help</strong></summary>
 
 ### Manual Pages
 
@@ -236,8 +242,10 @@ sudo apt install tldr
 ```
 
 ---
+</details>
 
-# Wildcards
+<details>
+<summary><strong>Wildcards</strong></summary>
 
 | Wildcard | Meaning |
 |----------|---------|
@@ -253,8 +261,10 @@ mv *.log archive/
 ```
 
 ---
+</details>
 
-# Brace Expansion
+<details>
+<summary><strong>Brace Expansion</strong></summary>
 
 Create multiple directories:
 
@@ -283,8 +293,10 @@ Works with:
 - rm
 
 ---
+</details>
 
-# Directory Shortcuts
+<details>
+<summary><strong>Directory Shortcuts</strong></summary>
 
 | Symbol | Meaning |
 |---------|---------|
@@ -307,8 +319,10 @@ cd ~
 ```
 
 ---
+</details>
 
-# Copying Files
+<details>
+<summary><strong>Copying Files</strong></summary>
 
 Copy a file:
 
@@ -335,8 +349,10 @@ cp -a source/. destination/
 ```
 
 ---
+</details>
 
-# Moving Files
+<details>
+<summary><strong>Moving Files</strong></summary>
 
 Move one file:
 
@@ -357,8 +373,10 @@ mv old.txt new.txt
 ```
 
 ---
+</details>
 
-# Creating Files
+<details>
+<summary><strong>Creating Files</strong></summary>
 
 Create an empty file:
 
@@ -373,8 +391,10 @@ touch {dev,test,prod}.yaml
 ```
 
 ---
+</details>
 
-# Finding Files
+<details>
+<summary><strong>Finding Files</strong></summary>
 
 Find every log file:
 
@@ -401,8 +421,10 @@ find .
 ```
 
 ---
+</details>
 
-# Disk Usage
+<details>
+<summary><strong>Disk Usage</strong></summary>
 
 Show directory sizes:
 
@@ -434,8 +456,10 @@ Remember:
 - **du** = Disk Usage (directory/file usage)
 
 ---
+</details>
 
-# Verify Your Work
+<details>
+<summary><strong>Verify Your Work</strong></summary>
 
 Common verification commands:
 
@@ -464,8 +488,10 @@ tree
 Display directory structure.
 
 ---
+</details>
 
-# Common Mistakes
+<details>
+<summary><strong>Common Mistakes</strong></summary>
 
 ### `*` expands before the command runs.
 
@@ -504,6 +530,7 @@ pwd
 ```
 
 ---
+</details>
 
 # My Workflow
 
@@ -514,3 +541,6 @@ When I don't know a command:
 3. Check `tldr`.
 4. Read the `man` page if needed.
 5. Add anything useful to this toolbox.
+
+</details>
+</details>
