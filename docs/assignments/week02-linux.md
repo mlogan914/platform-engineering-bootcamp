@@ -50,6 +50,14 @@ Understanding where files live and how to efficiently navigate a Linux system is
 
 ## Exercises
 
+## Progress
+- [x] Exercise 1
+- [x] Exercise 2
+- [x] Exercise 3
+- [x] Exercise 4
+- [x] Exercise 5
+- [ ] Bonus Exercise 6
+
 ### Exercise 1
 
 Create the following directory structure completely from the command line.
@@ -95,6 +103,73 @@ A sequencing server has become cluttered.
 
 Organize the filesystem into a clean project structure while preserving all data.
 
+## Bonus Exercise – grep
+
+### Scenario
+
+You have an application log called `app.log`.
+
+```text
+2026-07-14 08:15:22 INFO Application started
+2026-07-14 08:15:25 INFO User logged in
+2026-07-14 08:16:01 WARNING Low disk space
+2026-07-14 08:16:45 ERROR Failed to connect to database
+2026-07-14 08:17:02 INFO Retrying connection
+2026-07-14 08:17:05 ERROR Connection timeout
+2026-07-14 08:18:10 INFO Upload complete
+```
+
+### Tasks
+
+1. Display every line containing `ERROR`.
+
+2. Display every line containing either `ERROR` or `WARNING`.
+
+3. Count how many `INFO` messages exist.
+
+4. Show line numbers for every `ERROR`.
+
+5. Search for `error` regardless of capitalization.
+
+6. Display every line that **does not** contain `INFO`.
+
+7. Save all `ERROR` messages to a new file named `errors.log`.
+
+---
+
+<details>
+<summary><strong>Solutions</strong></summary>
+
+```bash
+grep "ERROR" app.log
+
+grep -E "ERROR|WARNING" app.log
+
+grep -c "INFO" app.log
+
+grep -n "ERROR" app.log
+
+grep -i "error" app.log
+
+grep -v "INFO" app.log
+
+grep "ERROR" app.log > errors.log
+```
+
+### Challenge
+
+Using only one command, display all `ERROR` or `WARNING` messages **with line numbers**.
+
+<details>
+<summary>Answer</summary>
+
+```bash
+grep -En "ERROR|WARNING" app.log
+```
+
+</details>
+
+</details>
 </details>
 
 ---
