@@ -37,6 +37,8 @@ This week focuses on solving realistic engineering problems commonly encountered
 - `tree`
 - `du`
 - `df`
+- `grep` ***
+- `sed` ***
 
 ---
 
@@ -103,7 +105,10 @@ A sequencing server has become cluttered.
 
 Organize the filesystem into a clean project structure while preserving all data.
 
-## Bonus Exercise – grep
+## Special Topics
+
+<details>
+<summary><strong>Bonus Exercise – grep</strong></summary>
 
 ### Scenario
 
@@ -166,9 +171,199 @@ Using only one command, display all `ERROR` or `WARNING` messages **with line nu
 ```bash
 grep -En "ERROR|WARNING" app.log
 ```
+</details>
+</details>
 
 </details>
 
+<details>
+<summary><strong>Bonus Exercise – sed </strong></summary>
+
+## Scenario
+
+A deployment script generated a configuration file with placeholder values. Before deploying the application, you need to update the configuration using `sed`.
+
+---
+
+## Step 1 – Create the Configuration File
+
+Create a file named `config.yml`.
+
+```yaml
+environment: dev
+region: us-west-1
+bucket: temp-bucket
+debug: true
+log_level: DEBUG
+database: old-db
+```
+
+---
+
+## Tasks
+
+### Task 1
+
+Update the environment from:
+
+```yaml
+environment: dev
+```
+
+to:
+
+```yaml
+environment: production
+```
+
+---
+
+### Task 2
+
+Disable debug mode.
+
+Change:
+
+```yaml
+debug: true
+```
+
+to:
+
+```yaml
+debug: false
+```
+
+---
+
+### Task 3
+
+Rename the S3 bucket.
+
+Change:
+
+```yaml
+bucket: temp-bucket
+```
+
+to:
+
+```yaml
+bucket: platform-data-prod
+```
+
+---
+
+### Task 4
+
+Change the logging level.
+
+Replace:
+
+```yaml
+log_level: DEBUG
+```
+
+with:
+
+```yaml
+log_level: INFO
+```
+
+---
+
+### Task 5
+
+Update the database name.
+
+Change:
+
+```yaml
+database: old-db
+```
+
+to:
+
+```yaml
+database: platform-db
+```
+
+---
+
+## Bonus Challenge
+
+Instead of modifying the original file, create a new file named:
+
+```text
+config-prod.yml
+```
+
+containing all of the changes above while leaving the original `config.yml` unchanged.
+
+---
+
+## Verification
+
+Display the completed configuration file.
+
+Expected output:
+
+```yaml
+environment: production
+region: us-west-1
+bucket: platform-data-prod
+debug: false
+log_level: INFO
+database: platform-db
+```
+
+---
+
+## Stretch Goal
+
+Platform engineers often need to update multiple configuration files at once.
+
+Create three files:
+
+```text
+config-dev.yml
+config-test.yml
+config-prod.yml
+```
+
+Each should contain:
+
+```yaml
+log_level: DEBUG
+```
+
+Using **one command**, update every file so that:
+
+```yaml
+log_level: DEBUG
+```
+
+becomes:
+
+```yaml
+log_level: INFO
+```
+
+---
+
+## Platform Engineering Perspective
+
+`sed` (Stream Editor) is commonly used to:
+
+- Modify configuration files
+- Replace environment variables during deployments
+- Update YAML and JSON files
+- Edit Kubernetes manifests
+- Patch Terraform configuration
+- Automate repetitive text changes in shell scripts
+
+It is frequently paired with commands such as `grep`, `find`, and `xargs` to locate and modify files as part of automation workflows.
+</details>
 </details>
 </details>
 
