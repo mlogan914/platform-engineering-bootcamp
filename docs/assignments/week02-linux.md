@@ -58,7 +58,7 @@ Understanding where files live and how to efficiently navigate a Linux system is
 - [x] Exercise 3
 - [x] Exercise 4
 - [x] Exercise 5
-- [ ] Bonus Exercise 6
+- [ ] Bonus Exercise 7
 
 ### Exercise 1
 
@@ -350,8 +350,6 @@ log_level: INFO
 ```
 
 ---
-
-## Platform Engineering Perspective
 
 `sed` (Stream Editor) is commonly used to:
 
