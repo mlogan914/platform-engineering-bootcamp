@@ -89,7 +89,25 @@ Replace a bucket name:
 ```bash
 sed -i 's/temp-bucket/platform-data-prod/' config.yml
 ```
+---
+# Replace and Create a New File
+```bash
+sed \
+    -e 's/environment: dev/environment: production/' \
+    -e 's/log_level: DEBUG/log_level: INFO/' \
+    -e 's/debug: true/debug: false/' \
+    -e 's/log_level: DEBUG/log_level: INFO/'\
+    -e 's/database: old-db/database: platform-db/' \
+    config.yml > config-prod.yml
+```
 
+# Replace in Multiple Files
+```bash
+sed -i 's/log_level: DEBUG/log_level: INFO/' \
+    config-dev.yml \
+    config-test.yml \
+    config-prod.yml
+```
 ---
 
 # Print Specific Lines
@@ -151,7 +169,6 @@ New Line
 ```bash
 sed -i 's/DEBUG/INFO/g' *.yml
 ```
-
 ---
 
 # Common Regular Expressions
