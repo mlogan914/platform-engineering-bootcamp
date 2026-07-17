@@ -21,7 +21,44 @@ Quick reference guide for Linux log searching, grep, and regular expressions.
 
 ---
 
-# 2. grep Options
+# 2. find Options
+
+| Option | Meaning | Example |
+|---------|---------|---------|
+| `-name` | Match filename (case-sensitive) | `find . -name "*.log"` |
+| `-iname` | Match filename (case-insensitive) | `find . -iname "*.log"` |
+| `-type f` | Find regular files | `find . -type f` |
+| `-type d` | Find directories | `find . -type d` |
+| `-mtime N` | Modified **N** days ago | `find . -mtime -7` |
+| `-size` | Find by file size | `find . -size +100M` |
+| `-maxdepth N` | Limit directory traversal depth | `find . -maxdepth 2` |
+| `-exec CMD {} \;` | Run a command on each result | `find . -name "*.log" -exec gzip {} \;` |
+| `-print0` | Output null-separated filenames (safe for spaces) | `find . -name "*.log" -print0` |
+
+<details>
+<summary><strong>Common Patterns</strong></summary>
+
+```bash
+# Find log files
+find . -name "*.log"
+
+# Find logs modified in the last day
+find . -name "*.log" -mtime -1
+
+# Find large log files
+find . -name "*.log" -size +100M
+
+# Search all log files for ERROR
+find . -name "*.log" -exec grep "ERROR" {} \;
+
+# Safe with filenames containing spaces
+find . -name "*.log" -print0 | xargs -0 grep "ERROR"
+```
+</details>
+
+---
+
+# 3. grep Options
 
 | Option | Meaning | Example |
 |---------|---------|---------|
@@ -41,7 +78,7 @@ Quick reference guide for Linux log searching, grep, and regular expressions.
 
 ---
 
-# 3. Regex Flavors
+# 4. Regex Flavors
 
 | Flavor | Used By | Notes |
 |---------|---------|------|
@@ -51,7 +88,7 @@ Quick reference guide for Linux log searching, grep, and regular expressions.
 
 ---
 
-# 4. Regex Operators
+# 5. Regex Operators
 
 | Pattern | Meaning | Example |
 |---------|---------|---------|
@@ -69,7 +106,7 @@ Quick reference guide for Linux log searching, grep, and regular expressions.
 
 ---
 
-# 5. Character Classes
+# 6. Character Classes
 
 | Pattern | Matches |
 |---------|---------|
@@ -82,7 +119,7 @@ Quick reference guide for Linux log searching, grep, and regular expressions.
 
 ---
 
-# 6. Common Regex Patterns
+# 7. Common Regex Patterns
 
 | Pattern | Meaning |
 |---------|---------|
@@ -96,7 +133,7 @@ Quick reference guide for Linux log searching, grep, and regular expressions.
 
 ---
 
-# 7. Common Log Searches
+# 8. Common Log Searches
 
 ## Find all ERROR messages
 
@@ -166,7 +203,7 @@ tail -f app.log | grep ERROR
 
 ---
 
-# 8. Combining find + grep
+# 9. Combining find + grep
 
 Search every `.log` file for ERROR
 
@@ -194,7 +231,7 @@ find . -name "*.log" -size +100M
 
 ---
 
-# 9. Mental Model
+# 10. Mental Model
 
 ```
 Need to find a file?
@@ -226,7 +263,7 @@ grep -C
 
 ---
 
-# 10. Platform Engineer Recipes
+# 11. Platform Engineer Recipes
 
 Search for errors
 
