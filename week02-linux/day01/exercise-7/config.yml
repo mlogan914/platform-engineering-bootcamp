@@ -1,0 +1,6 @@
+environment: dev
+region: us-west-1
+bucket: temp-bucket
+debug: true
+log_level: DEBUG
+database: old-db
