@@ -950,4 +950,52 @@ Check current user's groups:
 groups
 ```
 
+---
+
+## Execute a command on each result
+
+The `-exec` option runs a command on every file or directory returned by `find`.
+
+### Syntax
+
+```bash
+find <path> <filters> -exec <command> {} \;
+```
+
+- `{}` = Placeholder for the current search result.
+- `\;` = Marks the end of the command passed to `-exec`.
+
+### Examples
+
+Change permissions on every shell script:
+
+```bash
+find . -name "*.sh" -exec chmod 755 {} \;
+```
+
+Delete every temporary file:
+
+```bash
+find . -name "*.tmp" -exec rm {} \;
+```
+
+Run `grep` against every log file:
+
+```bash
+find . -name "*.log" -exec grep "ERROR" {} \;
+```
+
+### Why use `find -exec`?
+
+Unlike recursive commands, `find` allows you to target only specific objects.
+
+Examples:
+
+```bash
+find sequencing_data -type d -exec chmod 770 {} \;
+find sequencing_data -type f -exec chmod 660 {} \;
+```
+
+This applies different permissions to directories and files, which is considered safer and more explicit than applying one permission recursively.
+
 </details>
