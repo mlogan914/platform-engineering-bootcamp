@@ -544,3 +544,410 @@ When I don't know a command:
 
 </details>
 </details>
+
+<details>
+<summary><strong>Day 2: Linux Permissions</strong></summary>
+
+# File Permission Types
+
+| Permission | Symbol | Value | Meaning |
+|------------|--------|------:|---------|
+| Read | `r` | 4 | View file contents or list directory contents |
+| Write | `w` | 2 | Modify a file or create/delete files in a directory |
+| Execute | `x` | 1 | Execute a file or traverse a directory |
+
+Permissions are assigned to three categories:
+
+| Category | Meaning |
+|----------|---------|
+| User (u) | File owner |
+| Group (g) | Users belonging to the file's group |
+| Others (o) | Everyone else |
+
+---
+
+# Reading Permissions
+
+Example:
+
+```text
+-rwxr-x---
+```
+
+Break it into groups of three:
+
+```text
+- rwx r-x ---
+  │   │   │
+  │   │   └── Others
+  │   └────── Group
+  └────────── Owner
+```
+
+Meaning:
+
+| Category | Permissions |
+|----------|-------------|
+| Owner | Read, Write, Execute |
+| Group | Read, Execute |
+| Others | No permissions |
+
+---
+
+# Octal Permissions
+
+| Number | Binary | Permission |
+|--------:|--------|------------|
+| 0 | --- | No permissions |
+| 1 | --x | Execute |
+| 2 | -w- | Write |
+| 3 | -wx | Write + Execute |
+| 4 | r-- | Read |
+| 5 | r-x | Read + Execute |
+| 6 | rw- | Read + Write |
+| 7 | rwx | Read + Write + Execute |
+
+Examples:
+
+| Permission | Octal |
+|------------|:-----:|
+| `rw-------` | `600` |
+| `rwx------` | `700` |
+| `rw-r--r--` | `644` |
+| `rwxr-xr-x` | `755` |
+| `rwxrwx---` | `770` |
+
+---
+
+<details>
+<summary><strong>chmod</strong></summary>
+
+Change file or directory permissions.
+
+## Syntax
+
+```bash
+chmod [permissions] file
+```
+
+## Numeric Examples
+
+```bash
+chmod 600 config/app.conf
+chmod 644 config.yml
+chmod 700 deploy.sh
+chmod 755 install.sh
+chmod 770 shared
+```
+
+## Symbolic Examples
+
+```bash
+chmod +x deploy.sh
+chmod u+x deploy.sh
+chmod g+w shared
+chmod o-r secret.txt
+chmod a+r file.txt
+```
+
+---
+
+# Common Permissions
+
+## 600
+
+```text
+-rw-------
+```
+
+Use for:
+
+- Configuration files
+- API keys
+- Database credentials
+- SSH private keys
+- Secrets
+
+Owner can:
+
+- Read
+- Write
+
+No one else has access.
+
+---
+
+## 644
+
+```text
+-rw-r--r--
+```
+
+Use for:
+
+- Source code
+- Documentation
+- Public configuration files
+
+Everyone can read.
+
+Only the owner can modify.
+
+---
+
+## 700
+
+```text
+-rwx------
+```
+
+Use for:
+
+- Private scripts
+- Personal directories
+
+Owner can execute.
+
+No one else has access.
+
+---
+
+## 755
+
+```text
+-rwxr-xr-x
+```
+
+Use for:
+
+- Executable programs
+- Shell scripts
+- Utilities
+
+Everyone can execute.
+
+Only owner can modify.
+
+---
+
+## 770
+
+```text
+drwxrwx---
+```
+
+Use for:
+
+- Shared engineering directories
+- Team project folders
+- Deployment directories
+
+Owner and group have full access.
+
+Others have none.
+
+</details>
+
+---
+
+# Directories vs Files
+
+Execute permission behaves differently for directories.
+
+## Files
+
+Execute means:
+
+> Run the file as a program.
+
+Example:
+
+```bash
+./deploy.sh
+```
+
+---
+
+## Directories
+
+Execute means:
+
+> Traverse (enter) the directory.
+
+Without execute permission:
+
+- Cannot `cd` into the directory
+- Cannot access files inside it
+
+Even if read permission exists.
+
+---
+
+<details>
+<summary><strong>chown</strong></summary>
+
+Change file ownership.
+
+## Syntax
+
+```bash
+sudo chown owner file
+```
+
+Examples:
+
+```bash
+sudo chown root app.log
+sudo chown mlogan app.log
+```
+
+Change owner and group simultaneously:
+
+```bash
+sudo chown mlogan:docker shared
+```
+
+## Notes
+
+Changing ownership generally requires:
+
+```bash
+sudo
+```
+
+Only the root user can transfer ownership.
+
+</details>
+
+---
+
+<details>
+<summary><strong>chgrp</strong></summary>
+
+Change a file or directory group.
+
+## Syntax
+
+```bash
+sudo chgrp group_name directory
+```
+
+Example:
+
+```bash
+sudo chgrp docker shared
+```
+
+Verify:
+
+```bash
+ls -ld shared
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>groups</strong></summary>
+
+Display the groups the current user belongs to.
+
+```bash
+groups
+```
+
+Example:
+
+```text
+mlogan adm sudo docker
+```
+
+Useful when determining whether a user should already have access to a shared resource.
+
+</details>
+
+---
+
+<details>
+<summary><strong>ls -ld</strong></summary>
+
+Display information about the directory itself.
+
+```bash
+ls -ld shared
+```
+
+Example:
+
+```text
+drwxrwx--- 2 mlogan docker ...
+```
+
+Without `-d`:
+
+```bash
+ls -l shared
+```
+
+Displays the **contents** of the directory instead.
+
+</details>
+
+---
+
+# Principle of Least Privilege
+
+Only grant the permissions that are required.
+
+Examples:
+
+✅ Configuration file
+
+```bash
+chmod 600 app.conf
+```
+
+❌
+
+```bash
+chmod 700 app.conf
+```
+
+While `700` technically works, execute permission is unnecessary because configuration files are **data**, not programs.
+
+---
+
+# Troubleshooting Permission Issues
+
+Check permissions:
+
+```bash
+ls -l file
+```
+
+Check directory permissions:
+
+```bash
+ls -ld directory
+```
+
+Check owner and group:
+
+```bash
+ls -l
+```
+
+Check current user:
+
+```bash
+whoami
+```
+
+Check current user's groups:
+
+```bash
+groups
+```
+
+</details>
