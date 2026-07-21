@@ -41,9 +41,10 @@ drwxrwxr-x 2 mlogan mlogan 4096 Jul 21 15:48 sequencing_data/
 # Inspect file permissions
 ls -l sequencing_data
  
-# Change permissions
- sudo chgrp -R bioinformatics sequencing_data
+# Change folder group
+sudo chgrp -R bioinformatics sequencing_data
 
+# Check permissions
  ls -ld sequencing_data
 
 "
@@ -58,9 +59,25 @@ ls -l sequencing_data
 -rw-rw-r-- 1 mlogan bioinformatics 0 Jul 21 15:48 run002.fastq
 "
 
+# Chnage permissions
 find sequencing_data -type d -exec chmod 770 {} \;
+
+"
+drwxrwx--- 2 mlogan mlogan 4096 Jul 21 16:09 sequencing_data/
+"
 find sequencing_data -type f -exec chmod 660 {} \;
 
+"
+-rw-rw---- 1 mlogan mlogan 0 Jul 21 16:09 metadata.csv
+-rw-rw---- 1 mlogan mlogan 0 Jul 21 16:09 run001.fastq
+-rw-rw---- 1 mlogan mlogan 0 Jul 21 16:09 run002.fastq
+"
+
+# Confirm changes
+ls -ld sequencing_data/
+drwxrwx--- 2 mlogan mlogan 4096 Jul 21 16:09 sequencing_data/
+
+# Execute a command on each result
 find sequencing_data -name "*.fastq" -exec chmod 660 {} \;
 find sequencing_data -name "*.csv" -exec chmod 660 {} \;
 find sequencing_data -name "*.sh" -exec chmod 770 {} \;
