@@ -61,7 +61,10 @@ flowchart LR
 | `/usr` | User applications and utilities |
 
 ---
+
 </details>
+
+---
 
 <details>
 <summary><strong>Absolute vs Relative Paths</strong></summary>
@@ -181,7 +184,10 @@ cd ~
 - Prefer relative paths while navigating projects.
 
 ---
+
 </details>
+
+---
 
 <details>
 <summary><strong>Linux Tips & Shortcuts</strong></summary>
@@ -242,6 +248,7 @@ sudo apt install tldr
 ```
 
 ---
+
 </details>
 
 <details>
@@ -545,10 +552,15 @@ When I don't know a command:
 </details>
 </details>
 
+---
+
 <details>
 <summary><strong>Day 2: Linux Permissions</strong></summary>
 
-# File Permission Types
+<details>
+<summary><strong>File Permissions</strong></summary>
+
+## Permission Types
 
 | Permission | Symbol | Value | Meaning |
 |------------|--------|------:|---------|
@@ -566,7 +578,7 @@ Permissions are assigned to three categories:
 
 ---
 
-# Reading Permissions
+## Reading Permissions
 
 Example:
 
@@ -584,8 +596,6 @@ Break it into groups of three:
   └────────── Owner
 ```
 
-Meaning:
-
 | Category | Permissions |
 |----------|-------------|
 | Owner | Read, Write, Execute |
@@ -594,7 +604,7 @@ Meaning:
 
 ---
 
-# Octal Permissions
+## Octal Permissions
 
 | Number | Binary | Permission |
 |--------:|--------|------------|
@@ -619,6 +629,69 @@ Examples:
 
 ---
 
+## Common Permission Sets
+
+### `600`
+
+```text
+-rw-------
+```
+
+- Configuration files
+- API keys
+- SSH private keys
+- Secrets
+
+---
+
+### `644`
+
+```text
+-rw-r--r--
+```
+
+- Source code
+- Documentation
+- Public configuration
+
+---
+
+### `700`
+
+```text
+-rwx------
+```
+
+- Personal scripts
+- Private directories
+
+---
+
+### `755`
+
+```text
+-rwxr-xr-x
+```
+
+- Executable programs
+- Shell scripts
+- Utilities
+
+---
+
+### `770`
+
+```text
+drwxrwx---
+```
+
+- Shared engineering directories
+- Team project folders
+
+</details>
+
+---
+
 <details>
 <summary><strong>chmod</strong></summary>
 
@@ -630,7 +703,9 @@ Change file or directory permissions.
 chmod [permissions] file
 ```
 
-## Numeric Examples
+### Numeric Mode
+
+Replaces the existing permissions.
 
 ```bash
 chmod 600 config/app.conf
@@ -640,7 +715,9 @@ chmod 755 install.sh
 chmod 770 shared
 ```
 
-## Symbolic Examples
+### Symbolic Mode
+
+Adds or removes specific permissions.
 
 ```bash
 chmod +x deploy.sh
@@ -652,143 +729,41 @@ chmod a+r file.txt
 
 ---
 
-# Common Permissions
+## Directories vs Files
 
-## 600
+### Files
 
-```text
--rw-------
-```
-
-Use for:
-
-- Configuration files
-- API keys
-- Database credentials
-- SSH private keys
-- Secrets
-
-Owner can:
-
-- Read
-- Write
-
-No one else has access.
-
----
-
-## 644
-
-```text
--rw-r--r--
-```
-
-Use for:
-
-- Source code
-- Documentation
-- Public configuration files
-
-Everyone can read.
-
-Only the owner can modify.
-
----
-
-## 700
-
-```text
--rwx------
-```
-
-Use for:
-
-- Private scripts
-- Personal directories
-
-Owner can execute.
-
-No one else has access.
-
----
-
-## 755
-
-```text
--rwxr-xr-x
-```
-
-Use for:
-
-- Executable programs
-- Shell scripts
-- Utilities
-
-Everyone can execute.
-
-Only owner can modify.
-
----
-
-## 770
-
-```text
-drwxrwx---
-```
-
-Use for:
-
-- Shared engineering directories
-- Team project folders
-- Deployment directories
-
-Owner and group have full access.
-
-Others have none.
-
-</details>
-
----
-
-# Directories vs Files
-
-Execute permission behaves differently for directories.
-
-## Files
-
-Execute means:
+Execute permission means:
 
 > Run the file as a program.
-
-Example:
 
 ```bash
 ./deploy.sh
 ```
 
----
+### Directories
 
-## Directories
-
-Execute means:
+Execute permission means:
 
 > Traverse (enter) the directory.
 
-Without execute permission:
+Without execute permission you cannot:
 
-- Cannot `cd` into the directory
-- Cannot access files inside it
+- `cd` into the directory
+- Access files inside it
 
-Even if read permission exists.
+Even if you have read permission.
+
+</details>
 
 ---
 
 <details>
-<summary><strong>chown</strong></summary>
+<summary><strong>Ownership & Groups</strong></summary>
+
+### chown
 
 Change file ownership.
-
-## Syntax
 
 ```bash
 sudo chown owner file
@@ -799,40 +774,16 @@ Examples:
 ```bash
 sudo chown root app.log
 sudo chown mlogan app.log
-```
-
-Change owner and group simultaneously:
-
-```bash
 sudo chown mlogan:docker shared
 ```
 
-## Notes
-
-Changing ownership generally requires:
-
-```bash
-sudo
-```
-
-Only the root user can transfer ownership.
-
-</details>
+Changing ownership generally requires `sudo`.
 
 ---
 
-<details>
-<summary><strong>chgrp</strong></summary>
+### chgrp
 
 Change a file or directory group.
-
-## Syntax
-
-```bash
-sudo chgrp group_name directory
-```
-
-Example:
 
 ```bash
 sudo chgrp docker shared
@@ -844,12 +795,9 @@ Verify:
 ls -ld shared
 ```
 
-</details>
-
 ---
 
-<details>
-<summary><strong>groups</strong></summary>
+### groups
 
 Display the groups the current user belongs to.
 
@@ -863,25 +811,14 @@ Example:
 mlogan adm sudo docker
 ```
 
-Useful when determining whether a user should already have access to a shared resource.
-
-</details>
-
 ---
 
-<details>
-<summary><strong>ls -ld</strong></summary>
+### ls -ld
 
 Display information about the directory itself.
 
 ```bash
 ls -ld shared
-```
-
-Example:
-
-```text
-drwxrwx--- 2 mlogan docker ...
 ```
 
 Without `-d`:
@@ -890,35 +827,77 @@ Without `-d`:
 ls -l shared
 ```
 
-Displays the **contents** of the directory instead.
+lists the directory contents instead.
 
 </details>
 
 ---
 
-# Principle of Least Privilege
+<details>
+<summary><strong>find -exec</strong></summary>
 
-Only grant the permissions that are required.
+Run a command on every result returned by `find`.
 
-Examples:
+## Syntax
 
-✅ Configuration file
+```bash
+find <path> <filters> -exec <command> {} \;
+```
+
+- `{}` → Current search result
+- `\;` → End of the command
+
+### Examples
+
+```bash
+find . -name "*.sh" -exec chmod 755 {} \;
+```
+
+```bash
+find . -name "*.tmp" -exec rm {} \;
+```
+
+```bash
+find . -name "*.log" -exec grep "ERROR" {} \;
+```
+
+### Common Platform Engineering Pattern
+
+```bash
+find sequencing_data -type d -exec chmod 770 {} \;
+find sequencing_data -type f -exec chmod 660 {} \;
+```
+
+This allows different permissions to be applied to directories and files.
+
+</details>
+
+---
+
+<details>
+<summary><strong>Best Practices & Troubleshooting</strong></summary>
+
+## Principle of Least Privilege
+
+Only grant the permissions required.
+
+✅ Correct:
 
 ```bash
 chmod 600 app.conf
 ```
 
-❌
+❌ Unnecessary:
 
 ```bash
 chmod 700 app.conf
 ```
 
-While `700` technically works, execute permission is unnecessary because configuration files are **data**, not programs.
+Configuration files are data, not executable programs.
 
 ---
 
-# Troubleshooting Permission Issues
+## Troubleshooting Checklist
 
 Check permissions:
 
@@ -950,52 +929,342 @@ Check current user's groups:
 groups
 ```
 
+</details>
+
+</details>
+
 ---
 
-## Execute a command on each result
+<details>
+<summary><strong>Day 3: SSH, Users & Groups</strong></summary>
 
-The `-exec` option runs a command on every file or directory returned by `find`.
+<details>
+<summary><strong>SSH</strong></summary>
 
-### Syntax
+## Purpose
 
-```bash
-find <path> <filters> -exec <command> {} \;
+SSH provides secure remote access and passwordless authentication using public-key cryptography.
+
+Common uses:
+
+- Linux servers
+- GitHub/GitLab
+- Cloud VMs
+- CI/CD
+- Automation
+
+Steps: 
+```mermaid
+flowchart TD
+    A["Generate SSH Key Pair<br>(ssh-keygen)"]
+
+    A --> B["Private Key<br>🔒 Keep Secret"]
+    A --> C["Public Key<br>📤 Share"]
+
+    C --> D["Register Public Key<br>with Remote Resource"]
+
+    D --> E{"Where is it stored?"}
+
+    E --> F["Linux Server<br>~/.ssh/authorized_keys"]
+    E --> G["GitHub / GitLab<br>User SSH Keys"]
+    E --> H["Cloud VM (EC2, Azure, GCP)<br>Installed during provisioning"]
+
+    B --> I["ssh user@server"]
+    F --> J["Remote system verifies<br>your identity"]
+    G --> J
+    H --> J
+
+    I --> J
+    J --> K["✅ Authentication Successful"]
 ```
 
-- `{}` = Placeholder for the current search result.
-- `\;` = Marks the end of the command passed to `-exec`.
+---
 
-### Examples
+<details>
+<summary><strong>SSH Keys</strong></summary>
 
-Change permissions on every shell script:
-
-```bash
-find . -name "*.sh" -exec chmod 755 {} \;
-```
-
-Delete every temporary file:
+## Generate a Key
 
 ```bash
-find . -name "*.tmp" -exec rm {} \;
+ssh-keygen -t ed25519 -C "comment"
 ```
 
-Run `grep` against every log file:
+### Common Options
+
+| Option | Purpose |
+|---------|----------|
+| `-t` | Key type |
+| `-C` | Comment |
+| `-f` | Output filename |
+
+Example:
 
 ```bash
-find . -name "*.log" -exec grep "ERROR" {} \;
+ssh-keygen -t ed25519 -C "comment" \
+-f ~/.ssh/platform_bootcamp_ed25519
 ```
 
-### Why use `find -exec`?
+---
 
-Unlike recursive commands, `find` allows you to target only specific objects.
+### Key Types
 
-Examples:
+| Key Type  | Cryptography           | Status                                               |
+| --------- | ---------------------- | ---------------------------------------------------- |
+| `ed25519` | Elliptic Curve (EdDSA) | ✅ Recommended                                        |
+| `rsa`     | RSA                    | ✅ Still widely supported                             |
+| `ecdsa`   | Elliptic Curve (ECDSA) | Supported, but generally less preferred than Ed25519 |
+| `dsa`     | DSA                    | ❌ Deprecated                                         |
+
+
+---
+
+### SSH Directory
+
+```text
+~/.ssh/
+```
+
+| File | Purpose |
+|------|---------|
+| `id_ed25519` | Private key |
+| `id_ed25519.pub` | Public key |
+| `authorized_keys` | Trusted public keys |
+| `known_hosts` | Known server fingerprints |
+
+---
+
+### Common Commands
 
 ```bash
-find sequencing_data -type d -exec chmod 770 {} \;
-find sequencing_data -type f -exec chmod 660 {} \;
+ls -la ~/.ssh
+cat ~/.ssh/id_ed25519.pub
+ls -l ~/.ssh/id_ed25519*
 ```
 
-This applies different permissions to directories and files, which is considered safer and more explicit than applying one permission recursively.
+---
+
+### Public Key Format
+
+```text
+ssh-ed25519 <base64-key> <comment>
+```
+
+Components:
+
+1. Algorithm
+2. Public key
+3. Comment
+
+---
+
+### Security
+
+✅ Share
+
+- Public key
+
+❌ Never share
+
+- Private key
+- Passphrase
+
+</details>
+
+---
+
+<details>
+<summary><strong>Passwordless Authentication</strong></summary>
+
+Authentication flow:
+
+```text
+Your Computer                      Remote Server
+
+Private Key
+      │
+      ▼
+Signs challenge
+      │
+      ├──────────── SSH ───────────►
+                                     authorized_keys
+                                     contains matching
+                                     public key
+
+                                     Login succeeds
+```
+
+The private key never leaves your computer.
+
+</details>
+
+---
+
+<details>
+<summary><strong>authorized_keys</strong></summary>
+
+Purpose:
+
+Stores every public key authorized to log into a Linux account.
+
+Location:
+
+```text
+~/.ssh/authorized_keys
+```
+
+---
+
+### Add a Public Key
+
+```bash
+cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
+```
+
+Always use:
+
+```text
+>>
+```
+
+Never:
+
+```text
+>
+```
+
+---
+
+### Backup
+
+```bash
+cp ~/.ssh/authorized_keys ~/.ssh/authorized_keys.backup
+```
+
+---
+
+### View
+
+```bash
+cat ~/.ssh/authorized_keys
+cat -n ~/.ssh/authorized_keys
+tail ~/.ssh/authorized_keys
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>Permissions</strong></summary>
+
+| Path | Permission |
+|------|-----------:|
+| `~/.ssh` | `700` |
+| `authorized_keys` | `600` |
+| Private key | `600` |
+| Public key | `644` |
+
+SSH may reject authentication if permissions are too permissive.
+
+</details>
+
+---
+
+<details>
+<summary><strong>Deployment Methods</strong></summary>
+
+### Manual
+
+```bash
+cat id_ed25519.pub >> ~/.ssh/authorized_keys
+```
+
+### Preferred
+
+```bash
+ssh-copy-id user@server
+```
+
+Automatically:
+
+- Creates `.ssh`
+- Copies public key
+- Updates `authorized_keys`
+- Sets permissions
+
+### Cloud
+
+- AWS EC2
+- Azure VM
+- Google Compute Engine
+
+### Automation
+
+- Ansible
+- Puppet
+- Chef
+
+</details>
+
+---
+
+<details>
+<summary><strong>Troubleshooting</strong></summary>
+
+### View Public Key
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+### Verify Permissions
+
+```bash
+ls -la ~/.ssh
+```
+
+### Remove Last Line
+
+```bash
+sed -i '$d' ~/.ssh/authorized_keys
+```
+
+### Common Error
+
+`Saving key "~/.ssh/..." failed`
+
+Cause:
+
+`~` is expanded by the shell, **not** by `ssh-keygen`'s interactive prompt.
+
+Use:
+
+```text
+/home/user/.ssh/key_name
+```
+
+or
+
+```bash
+ssh-keygen -f ~/.ssh/key_name
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>Platform Engineering Examples</strong></summary>
+
+- Provision new engineers
+- Configure Linux server access
+- Authenticate GitHub
+- Access cloud VMs
+- Configure CI/CD runners
+
+</details>
+</details>
+
+---
 
 </details>
