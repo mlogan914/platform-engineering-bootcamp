@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # ==============================
 # Copy configuration files into multiple environment folders.
 # ==============================

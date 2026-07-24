@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # ==============================
 # Move completed log files into an archive directory.
 # ==============================

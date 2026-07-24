@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # ==============================
 # Exercise 1: Make deployment scripts executable.
 # ==============================
