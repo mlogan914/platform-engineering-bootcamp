@@ -989,7 +989,7 @@ flowchart TD
 ## Generate a Key
 
 ```bash
-ssh-keygen -t ed25519 -C "comment"
+ssh-keygen -t ed25519 -C "comment" -f ~/.ssh/platform_bootcamp_ed25519
 ```
 
 ### Common Options
@@ -999,13 +999,6 @@ ssh-keygen -t ed25519 -C "comment"
 | `-t` | Key type |
 | `-C` | Comment |
 | `-f` | Output filename |
-
-Example:
-
-```bash
-ssh-keygen -t ed25519 -C "comment" \
--f ~/.ssh/platform_bootcamp_ed25519
-```
 
 ---
 
@@ -1053,21 +1046,16 @@ ssh-ed25519 <base64-key> <comment>
 ```
 
 Components:
-
-1. Algorithm
-2. Public key
-3. Comment
+`<Algorithm> <Public key> <Comment>`
 
 ---
 
 ### Security
 
-✅ Share
-
+Share: 
 - Public key
 
-❌ Never share
-
+Never share:
 - Private key
 - Passphrase
 
@@ -1176,36 +1164,90 @@ SSH may reject authentication if permissions are too permissive.
 <details>
 <summary><strong>Deployment Methods</strong></summary>
 
-### Manual
+## Scenario 1: You Manage the Server
+
+You already have password access.
+
+### Step 1 - Generate a key pair
 
 ```bash
-cat id_ed25519.pub >> ~/.ssh/authorized_keys
+ssh-keygen -t ed25519 -C "comment" -f ~/.ssh/my_server_ed25519
 ```
 
-### Preferred
+### Step 2 - Install your public key
 
 ```bash
-ssh-copy-id user@server
+ssh-copy-id -i ~/.ssh/my_server_ed25519.pub user@server
 ```
 
-Automatically:
+`ssh-copy-id` automatically:
 
-- Creates `.ssh`
-- Copies public key
-- Updates `authorized_keys`
-- Sets permissions
+- Creates `~/.ssh` if needed
+- Copies your public key
+- Appends it to `authorized_keys`
+- Sets the correct permissions
 
-### Cloud
+### Step 3 - Connect
 
-- AWS EC2
-- Azure VM
-- Google Compute Engine
+```bash
+ssh -i ~/.ssh/my_server_ed25519 user@server
+```
 
-### Automation
+---
 
-- Ansible
-- Puppet
-- Chef
+## Scenario 2: Administrator Manages Access
+
+You do **not** have password access.
+
+### Step 1 - Generate a key pair
+
+```bash
+ssh-keygen -t ed25519 -C "comment" -f ~/.ssh/my_server_ed25519
+```
+
+### Step 2 - Display your public key
+
+```bash
+cat ~/.ssh/my_server_ed25519.pub
+```
+
+Send the output to the administrator.
+
+### Step 3 - Administrator installs the key
+
+On the server, they add your public key to:
+
+```text
+/home/user/.ssh/authorized_keys
+```
+
+### Step 4 - Connect
+
+```bash
+ssh -i ~/.ssh/my_server_ed25519 user@server
+```
+
+---
+
+## Scenario 3: Cloud Provisioning (EC2, Azure, GCP)
+
+Generate a key pair.
+
+During VM creation:
+
+- Upload or paste your **public key**.
+
+The cloud platform installs it into the VM's:
+
+```text
+~/.ssh/authorized_keys
+```
+
+You then connect:
+
+```bash
+ssh -i ~/.ssh/my_server_ed25519 user@server
+```
 
 </details>
 
