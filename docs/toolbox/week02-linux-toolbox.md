@@ -1093,7 +1093,7 @@ The private key never leaves your computer.
 <details>
 <summary><strong>authorized_keys</strong></summary>
 
-Purpose:
+## Purpose:
 
 Stores every public key authorized to log into a Linux account.
 
@@ -1312,4 +1312,264 @@ ssh-keygen -f ~/.ssh/key_name
 
 ---
 
+<details>
+<summary><strong>Users & Groups</strong></summary>
+
+## Purpose
+
+Linux uses **users** and **groups** to control access to files, directories, and processes.
+
+Every file and process has:
+
+- Owner
+- Group
+- Permissions
+
+---
+
+## User vs Group
+
+| Term | Description |
+|------|-------------|
+| User | Individual Linux account |
+| Group | Collection of users |
+| Primary Group | Default group assigned to a user |
+| Secondary Groups | Additional groups a user belongs to |
+
+Example:
+
+```text
+User:    mlogan
+Primary: mlogan
+Groups:  mlogan sudo docker
+```
+
+---
+
+<details>
+<summary><strong>Common Commands</strong></summary>
+
+### Current User
+
+```bash
+whoami
+```
+
+Displays the current username.
+
+---
+
+### User Information
+
+```bash
+id
+```
+
+Displays:
+
+- Username
+- UID
+- Primary GID
+- Secondary groups
+
+---
+
+### Groups
+
+```bash
+groups
+```
+
+Current user's groups.
+
+```bash
+groups username
+```
+
+Specific user's groups.
+
+---
+
+### Administrative Commands
+
+Run a command as root:
+
+```bash
+sudo command
+```
+
+Switch users:
+
+```bash
+su username
+```
+
+Become root (if enabled):
+
+```bash
+su -
+```
+
+---
+
+### Change Password
+
+Current user:
+
+```bash
+passwd
+```
+
+Another user:
+
+```bash
+sudo passwd username
+```
+
 </details>
+
+---
+
+<details>
+<summary><strong>Important Files</strong></summary>
+
+### `/etc/passwd`
+
+Stores Linux user accounts.
+
+Example:
+
+```text
+mlogan:x:1000:1000:Melanie Logan:/home/mlogan:/bin/bash
+```
+
+Fields:
+
+1. Username
+2. Password placeholder
+3. UID
+4. GID
+5. Description
+6. Home directory
+7. Login shell
+
+View:
+
+```bash
+cat /etc/passwd
+```
+
+---
+
+### `/etc/group`
+
+Stores Linux groups.
+
+Example:
+
+```text
+docker:x:999:mlogan
+```
+
+Fields:
+
+1. Group name
+2. Password placeholder
+3. GID
+4. Members
+
+View:
+
+```bash
+cat /etc/group
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>Platform Engineering Workflow</strong></summary>
+
+Check current user:
+
+```bash
+whoami
+```
+
+View identity and groups:
+
+```bash
+id
+```
+
+Check group membership:
+
+```bash
+groups
+```
+
+Inspect file ownership:
+
+```bash
+ls -l
+```
+
+Inspect directory ownership:
+
+```bash
+ls -ld directory
+```
+
+Run an administrative command:
+
+```bash
+sudo command
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>Troubleshooting & Interview Notes</strong></summary>
+
+### Permission Denied
+
+```bash
+whoami
+groups
+id
+ls -l
+ls -ld directory
+```
+
+---
+
+### `whoami` vs `id`
+
+- `whoami` → Username only
+- `id` → Username, UID, GID, and group memberships
+
+---
+
+### Primary vs Secondary Groups
+
+- Primary group → Default group for new files
+- Secondary groups → Additional permissions
+
+---
+
+### Why use `sudo`?
+
+- Limits root access
+- Logs administrative actions
+- Reduces accidental system-wide changes
+
+</details>
+
+</details>
+
+</details>
+
+---
