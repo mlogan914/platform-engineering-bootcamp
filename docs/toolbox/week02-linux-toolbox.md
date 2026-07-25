@@ -941,7 +941,8 @@ groups
 <details>
 <summary><strong>SSH</strong></summary>
 
-## Purpose
+<details>
+<summary><strong>Purpose</strong></summary>
 
 SSH provides secure remote access and passwordless authentication using public-key cryptography.
 
@@ -977,6 +978,8 @@ flowchart TD
     I --> J
     J --> K["✅ Authentication Successful"]
 ```
+
+</details>
 
 ---
 
@@ -1083,7 +1086,7 @@ Your Computer                      Remote Server
 Private Key
       │
       ▼
-Signs challenge
+Challenge-response authentication
       │
       ├──────────── SSH ───────────►
                                      authorized_keys
