@@ -519,13 +519,14 @@ Configure:
 
 ---
 <details>
-<summary><strong> Day 4 – Processes & Networking</strong></summary>
+<summary><strong>Day 4 – Processes & Networking</strong></summary>
 
 ## Learning Objectives
 
-- Monitor running processes
-- Manage background jobs
-- Diagnose networking problems
+- Inspect running processes
+- Manage foreground and background jobs
+- Terminate or prioritize processes
+- Diagnose basic network connectivity
 
 ---
 
@@ -533,85 +534,51 @@ Configure:
 
 ### Processes
 
+#### Viewing Processes
+
 - `ps`
 - `top`
 - `htop`
+
+#### Job Control
+
 - `jobs`
 - `bg`
 - `fg`
+
+#### Managing Processes
+
 - `kill`
 - `killall`
 - `nice`
 
+---
+
 ### Networking
 
+#### Connectivity
+
+- `hostname`
 - `ping`
+
+#### HTTP Requests
+
 - `curl`
 - `wget`
-- `netstat`
-- `ss`
+
+#### Network Configuration
+
 - `ip`
-- `hostname`
+
+#### Network Connections
+
+- `ss`
+- `netstat`
+
+#### DNS
+
 - `dig`
 - `nslookup`
-
----
-
-## Platform Engineering Perspective
-
-When applications stop responding, platform engineers need to quickly determine whether the problem is:
-
-- application
-- network
-- DNS
-- server resources
-
----
-
-## Exercises
-
-### Exercise 1
-
-Kill a runaway process.
-
----
-
-### Exercise 2
-
-Download software using the command line.
-
----
-
-### Exercise 3
-
-Determine which process owns a network port.
-
----
-
-### Exercise 4
-
-Verify internet connectivity.
-
----
-
-### Exercise 5
-
-Investigate DNS failures.
-
----
-
-## Assignment
-
-A sequencing pipeline has stopped responding.
-
-Determine whether the problem is:
-
-- Process
-- Network
-- DNS
-- Permissions
-
-Repair the issue.
 
 </details>
 
