@@ -1573,7 +1573,6 @@ ls -ld directory
 </details>
 
 ---
-
 <details>
 <summary><strong>Day 4: Processes & Networking</strong></summary>
 
@@ -1586,7 +1585,7 @@ Linux runs programs as **processes**. Each process has a unique **Process ID (PI
 
 ---
 
-### View Processes
+## View Processes
 
 Current terminal:
 
@@ -1612,9 +1611,30 @@ Search for a process:
 ps -ef | grep process_name
 ```
 
+Find a process by name:
+
+```bash
+pgrep process_name
+```
+
+Show PID and command:
+
+```bash
+pgrep -a process_name
+```
+
+### Common `ps` Output
+
+| Column | Meaning |
+|---------|---------|
+| **PID** | Process ID (unique identifier) |
+| **TTY** | Terminal the process is attached to |
+| **TIME** | Total CPU time consumed |
+| **CMD** | Command that started the process |
+
 ---
 
-### Monitor Processes
+## Monitor Processes
 
 Real-time process monitor:
 
@@ -1634,21 +1654,140 @@ Useful information:
 - Memory usage
 - Running processes
 - Process IDs (PID)
+- Scheduler priority
+- Nice value
 
 ---
 
-### Job Control
+## `top` Quick Reference
 
-Suspend the current foreground process:
+### Quit
+
+```text
+q
+```
+
+---
+
+### Monitor a Specific Process
+
+```bash
+top -p <PID>
+```
+
+---
+
+### Batch Mode (Useful for Scripts)
+
+```bash
+top -b
+```
+
+---
+
+### Show CPU Usage Per Core
+
+```bash
+top -1
+```
+
+---
+
+### Kill a Process
+
+While `top` is running:
+
+```text
+k
+```
+
+Enter the PID and press Enter.
+
+---
+
+### Toggle Colors
+
+```text
+z
+```
+
+---
+
+## `top` Output
+
+### System Summary
+
+```text
+Tasks: 293 total,   1 running, 292 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.4 us,  1.6 sy,  0.0 ni, 96.1 id,  0.0 wa,  0.0 hi,  2.0 si,  0.0 st
+MiB Mem :   3916.7 total,    387.5 free,   1570.2 used,   1959.0 buff/cache
+MiB Swap:   2048.0 total,   1945.5 free,    102.5 used.   2019.1 avail Mem
+```
+
+| Field | Description |
+|--------|-------------|
+| Time | Current system time |
+| Uptime | System uptime |
+| Users | Logged-in users |
+| Load Average | Average system load (1, 5, 15 min) |
+| Tasks | Running, sleeping, stopped, zombie processes |
+| CPU | CPU utilization (`us`, `sy`, `ni`, `id`, `wa`) |
+| Memory | RAM usage |
+| Swap | Swap usage |
+
+### Process Table
+
+| Column | Description |
+|--------|-------------|
+| `PID` | Process ID |
+| `USER` | Process owner |
+| `PR` | Scheduler priority |
+| `NI` | Nice value |
+| `VIRT` | Virtual memory |
+| `RES` | Physical memory (RAM) |
+| `SHR` | Shared memory |
+| `S` | Process state |
+| `%CPU` | CPU usage |
+| `%MEM` | Memory usage |
+| `TIME+` | CPU time consumed |
+| `COMMAND` | Executable name |
+
+### Process States
+
+| State | Meaning |
+|-------|---------|
+| `R` | Running |
+| `S` | Sleeping (interruptible) |
+| `D` | Uninterruptible sleep (usually I/O) |
+| `T` | Stopped/Traced |
+| `Z` | Zombie |
+
+---
+
+## Job Control
+
+Suspend foreground process:
 
 ```text
 Ctrl+Z
+```
+
+Stop foreground process:
+
+```text
+Ctrl+C
 ```
 
 View background jobs:
 
 ```bash
 jobs
+```
+
+Show job numbers and PIDs:
+
+```bash
+jobs -l
 ```
 
 Resume in background:
@@ -1663,17 +1802,17 @@ Bring to foreground:
 fg %1
 ```
 
-Stop a foreground process:
+Run directly in the background:
 
-```text
-Ctrl+C
+```bash
+sleep 300 &
 ```
 
 ---
 
-### Terminate Processes
+## Terminate Processes
 
-Kill by PID:
+Graceful termination:
 
 ```bash
 kill PID
@@ -1685,42 +1824,83 @@ Force kill:
 kill -9 PID
 ```
 
-Kill by process name:
+Kill by name:
 
 ```bash
 killall process_name
 ```
 
+### Common Signals
+
+| Signal | Description |
+|---------|-------------|
+| `SIGTERM (15)` | Graceful shutdown (default for `kill`) |
+| `SIGKILL (9)` | Immediate termination |
+| `SIGINT (2)` | Interrupt (`Ctrl+C`) |
+| `SIGSTOP (19)` | Pause process |
+
 ---
 
-### Process Priority
+## Process Priority (Niceness)
 
-Start with lower priority:
+Linux uses **niceness** to influence CPU scheduling priority.
+
+Higher niceness = **lower CPU scheduling priority**
+
+Lower niceness = **higher CPU scheduling priority**
+
+| Nice Value | Priority |
+|------------|----------|
+| `-20` | Highest priority |
+| `0` | Default |
+| `19` | Lowest priority |
+
+Start a command with lower priority:
 
 ```bash
 nice -n 10 command
 ```
 
-View nice value:
+View a process's nice value:
 
 ```bash
 ps -o pid,ni,comm
 ```
 
+Change an existing process:
+
+```bash
+renice 10 -p PID
+```
+
+> **Remember:** `nice` affects **CPU scheduling priority only**. It does **not** affect memory usage, network priority, disk I/O, or CPU affinity.
+
 ---
 
-### Platform Engineering Examples
+## Platform Engineering Examples
 
-Find a stuck process:
+Find a stuck Python process:
 
 ```bash
 ps -ef | grep python
 ```
 
-Monitor resource usage:
+or
+
+```bash
+pgrep -a python
+```
+
+Monitor CPU and memory usage:
 
 ```bash
 top
+```
+
+Run a low-priority backup:
+
+```bash
+nice -n 19 tar -czf backup.tar.gz mydir/
 ```
 
 Terminate a failed deployment:
@@ -1731,7 +1911,7 @@ kill PID
 
 ---
 
-### Troubleshooting Workflow
+## Troubleshooting Workflow
 
 ```text
 Application appears stuck
@@ -1740,16 +1920,19 @@ Application appears stuck
 Find the process
         │
         ▼
-ps / grep
+ps / pgrep
         │
         ▼
-Monitor resource usage
+Monitor usage
         │
         ▼
 top
         │
         ▼
-Kill or restart if necessary
+Graceful kill (SIGTERM)
+        │
+        ▼
+Force kill (SIGKILL) if necessary
 ```
 
 </details>
@@ -1765,7 +1948,7 @@ Networking tools help verify connectivity, inspect interfaces, troubleshoot DNS,
 
 ---
 
-### Connectivity
+## Connectivity
 
 View hostname:
 
@@ -1787,7 +1970,7 @@ Ctrl+C
 
 ---
 
-### HTTP Requests
+## HTTP Requests
 
 Retrieve a webpage:
 
@@ -1801,6 +1984,12 @@ Headers only:
 curl -I https://example.com
 ```
 
+Verbose request (great for troubleshooting):
+
+```bash
+curl -v https://example.com
+```
+
 Download a file:
 
 ```bash
@@ -1809,7 +1998,7 @@ wget https://example.com/file.zip
 
 ---
 
-### Network Configuration
+## Network Configuration
 
 Display interfaces:
 
@@ -1823,14 +2012,26 @@ Display routing table:
 ip route
 ```
 
+Show interface statistics:
+
+```bash
+ip -s link
+```
+
 ---
 
-### Open Connections
+## Open Connections
 
-Display listening sockets (modern):
+Display listening sockets:
 
 ```bash
 ss -tuln
+```
+
+Display listening processes:
+
+```bash
+ss -tulpn
 ```
 
 Legacy equivalent:
@@ -1841,7 +2042,7 @@ netstat -tuln
 
 ---
 
-### DNS
+## DNS
 
 Lookup a hostname:
 
@@ -1857,7 +2058,7 @@ nslookup github.com
 
 ---
 
-### Platform Engineering Examples
+## Platform Engineering Examples
 
 Verify network access:
 
@@ -1871,10 +2072,16 @@ Verify an API endpoint:
 curl -I https://api.github.com
 ```
 
+Debug an HTTP request:
+
+```bash
+curl -v https://api.github.com
+```
+
 Determine whether an application is listening:
 
 ```bash
-ss -tuln
+ss -tulpn
 ```
 
 Determine whether DNS is working:
@@ -1885,7 +2092,7 @@ dig company.internal
 
 ---
 
-### Troubleshooting Workflow
+## Troubleshooting Workflow
 
 ```text
 Can't reach application
@@ -1923,16 +2130,37 @@ dig
 
 ---
 
+### `grep` vs `pgrep`
+
+- `grep` → Search process output or text
+- `pgrep` → Find processes directly by name
+
+---
+
 ### `kill` vs `kill -9`
 
-- `kill` → Requests graceful termination (`SIGTERM`)
-- `kill -9` → Forces immediate termination (`SIGKILL`)
+- `kill` → Graceful termination (`SIGTERM`)
+- `kill -9` → Immediate termination (`SIGKILL`)
+
+---
+
+### `nice` vs `renice`
+
+- `nice` → Start a new process with a specified niceness
+- `renice` → Change the niceness of an existing process
+
+---
+
+### `Ctrl+C` vs `Ctrl+Z`
+
+- `Ctrl+C` → Terminate the foreground process
+- `Ctrl+Z` → Suspend the foreground process
 
 ---
 
 ### `curl` vs `wget`
 
-- `curl` → Interact with APIs and HTTP services
+- `curl` → APIs, HTTP requests, testing endpoints
 - `wget` → Download files
 
 ---
@@ -1940,14 +2168,14 @@ dig
 ### `ss` vs `netstat`
 
 - `ss` → Modern replacement
-- `netstat` → Legacy tool still seen on older systems
+- `netstat` → Legacy tool
 
 ---
 
 ### `dig` vs `nslookup`
 
-- `dig` → More detailed DNS troubleshooting
-- `nslookup` → Simpler DNS lookups
+- `dig` → Detailed DNS troubleshooting
+- `nslookup` → Simple DNS lookups
 
 </details>
 
