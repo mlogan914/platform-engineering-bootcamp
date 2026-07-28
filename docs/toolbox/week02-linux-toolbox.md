@@ -1573,3 +1573,382 @@ ls -ld directory
 </details>
 
 ---
+
+<details>
+<summary><strong>Day 4: Processes & Networking</strong></summary>
+
+<details>
+<summary><strong>Processes</strong></summary>
+
+## Purpose
+
+Linux runs programs as **processes**. Each process has a unique **Process ID (PID)** and consumes system resources such as CPU and memory.
+
+---
+
+### View Processes
+
+Current terminal:
+
+```bash
+ps
+```
+
+All processes:
+
+```bash
+ps -ef
+```
+
+Processes for a specific user:
+
+```bash
+ps -u username
+```
+
+Search for a process:
+
+```bash
+ps -ef | grep process_name
+```
+
+---
+
+### Monitor Processes
+
+Real-time process monitor:
+
+```bash
+top
+```
+
+Interactive process viewer (if installed):
+
+```bash
+htop
+```
+
+Useful information:
+
+- CPU usage
+- Memory usage
+- Running processes
+- Process IDs (PID)
+
+---
+
+### Job Control
+
+Suspend the current foreground process:
+
+```text
+Ctrl+Z
+```
+
+View background jobs:
+
+```bash
+jobs
+```
+
+Resume in background:
+
+```bash
+bg %1
+```
+
+Bring to foreground:
+
+```bash
+fg %1
+```
+
+Stop a foreground process:
+
+```text
+Ctrl+C
+```
+
+---
+
+### Terminate Processes
+
+Kill by PID:
+
+```bash
+kill PID
+```
+
+Force kill:
+
+```bash
+kill -9 PID
+```
+
+Kill by process name:
+
+```bash
+killall process_name
+```
+
+---
+
+### Process Priority
+
+Start with lower priority:
+
+```bash
+nice -n 10 command
+```
+
+View nice value:
+
+```bash
+ps -o pid,ni,comm
+```
+
+---
+
+### Platform Engineering Examples
+
+Find a stuck process:
+
+```bash
+ps -ef | grep python
+```
+
+Monitor resource usage:
+
+```bash
+top
+```
+
+Terminate a failed deployment:
+
+```bash
+kill PID
+```
+
+---
+
+### Troubleshooting Workflow
+
+```text
+Application appears stuck
+        │
+        ▼
+Find the process
+        │
+        ▼
+ps / grep
+        │
+        ▼
+Monitor resource usage
+        │
+        ▼
+top
+        │
+        ▼
+Kill or restart if necessary
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>Networking</strong></summary>
+
+## Purpose
+
+Networking tools help verify connectivity, inspect interfaces, troubleshoot DNS, and test web services.
+
+---
+
+### Connectivity
+
+View hostname:
+
+```bash
+hostname
+```
+
+Test connectivity:
+
+```bash
+ping google.com
+```
+
+Stop ping:
+
+```text
+Ctrl+C
+```
+
+---
+
+### HTTP Requests
+
+Retrieve a webpage:
+
+```bash
+curl https://example.com
+```
+
+Headers only:
+
+```bash
+curl -I https://example.com
+```
+
+Download a file:
+
+```bash
+wget https://example.com/file.zip
+```
+
+---
+
+### Network Configuration
+
+Display interfaces:
+
+```bash
+ip addr
+```
+
+Display routing table:
+
+```bash
+ip route
+```
+
+---
+
+### Open Connections
+
+Display listening sockets (modern):
+
+```bash
+ss -tuln
+```
+
+Legacy equivalent:
+
+```bash
+netstat -tuln
+```
+
+---
+
+### DNS
+
+Lookup a hostname:
+
+```bash
+dig github.com
+```
+
+Alternative:
+
+```bash
+nslookup github.com
+```
+
+---
+
+### Platform Engineering Examples
+
+Verify network access:
+
+```bash
+ping github.com
+```
+
+Verify an API endpoint:
+
+```bash
+curl -I https://api.github.com
+```
+
+Determine whether an application is listening:
+
+```bash
+ss -tuln
+```
+
+Determine whether DNS is working:
+
+```bash
+dig company.internal
+```
+
+---
+
+### Troubleshooting Workflow
+
+```text
+Can't reach application
+        │
+        ▼
+hostname
+        │
+        ▼
+ping
+        │
+        ▼
+curl
+        │
+        ▼
+ip addr
+        │
+        ▼
+ss
+        │
+        ▼
+dig
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>Comparisons</strong></summary>
+
+### `ps` vs `top`
+
+- `ps` → Snapshot of running processes
+- `top` → Real-time monitoring
+
+---
+
+### `kill` vs `kill -9`
+
+- `kill` → Requests graceful termination (`SIGTERM`)
+- `kill -9` → Forces immediate termination (`SIGKILL`)
+
+---
+
+### `curl` vs `wget`
+
+- `curl` → Interact with APIs and HTTP services
+- `wget` → Download files
+
+---
+
+### `ss` vs `netstat`
+
+- `ss` → Modern replacement
+- `netstat` → Legacy tool still seen on older systems
+
+---
+
+### `dig` vs `nslookup`
+
+- `dig` → More detailed DNS troubleshooting
+- `nslookup` → Simpler DNS lookups
+
+</details>
+
+</details>
