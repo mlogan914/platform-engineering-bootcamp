@@ -110,14 +110,28 @@ htop
 # ==============================
 # Exercise 3 – Background Jobs
 # ==============================
+"
+Objective
 
-# Start a command that runs for a while.
+Learn Linux job control.
+
+Tasks
+1. Start a command that runs for a while.
+sleep 300
+2. Suspend it with:
+Ctrl+Z
+3. View your jobs.
+4. Resume it in the background.
+5. Bring it back to the foreground.
+6. Stop it.
+"
+# 1. Start a command that runs for a while.
 sleep 300
 
-# Suspend it
+# 2. Suspend it
 "Ctrl + z"
 
-# View your jobs.
+# 3. View your jobs.
 jobs
 
 "
@@ -125,15 +139,15 @@ jobs
 [2]-  Stopped                 sleep 300
 [3]+  Stopped                 sleep 300
 "
-# Resume it in the background.
+# 4. Resume it in the background.
 sleep 300
 
 bg %2
 
-# Bring it back to the foreground.
+# 5. Bring it back to the foreground.
 fg %2
 
-# Stop it.
+# 6. Stop it.
 "Ctrl + z"
 
 # ==============================
@@ -151,27 +165,27 @@ sleep 300
 3. Terminate it using its PID.
 4. Verify it is no longer running.
 "
-# Start a process in the background
+# 1. Start a process in the background
 sleep 300 &
 
 "
 [8] 39841
 "
 
-# Find its PID.
+# 2. Find its PID.
 jobs -l
 
 "
 [8]   39841 Running                 sleep 300 &
 "
 
-# Terminate it using its PID.
+# 3. Terminate it using its PID.
 kill 39841
 
 "
 [8]   Terminated              sleep 300
 "
-# Verify it is no longer running.
+# 4. Verify it is no longer running.
 
 # kill by job number (examples)
 kill %8
@@ -206,10 +220,10 @@ nice -n 10 sleep 300
 2. View it with ps.
 3. Observe the NI (nice) column.
 "
-# Start a low-priority process.
+# 1. Start a low-priority process.
 nice -n 10 sleep 300 &
 
-# View it with ps
+# 2/3. View it with ps
 ps -o pid,ni,comm -p 41233
 
 "
