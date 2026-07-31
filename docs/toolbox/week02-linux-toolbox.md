@@ -1573,378 +1573,13 @@ ls -ld directory
 </details>
 
 ---
-<details>
-<summary><strong>Day 4: Processes & Networking</strong></summary>
-
-<details>
-<summary><strong>Processes</strong></summary>
-
-## Purpose
-
-Linux runs programs as **processes**. Each process has a unique **Process ID (PID)** and consumes system resources such as CPU and memory.
-
----
-
-## View Processes
-
-Current terminal:
-
-```bash
-ps
-```
-
-All processes:
-
-```bash
-ps -ef
-```
-
-Processes for a specific user:
-
-```bash
-ps -u username
-```
-
-Search for a process:
-
-```bash
-ps -ef | grep process_name
-```
-
-Find a process by name:
-
-```bash
-pgrep process_name
-```
-
-Show PID and command:
-
-```bash
-pgrep -a process_name
-```
-
-### Common `ps` Output
-
-| Column | Meaning |
-|---------|---------|
-| **PID** | Process ID (unique identifier) |
-| **TTY** | Terminal the process is attached to |
-| **TIME** | Total CPU time consumed |
-| **CMD** | Command that started the process |
-
----
-
-## Monitor Processes
-
-Real-time process monitor:
-
-```bash
-top
-```
-
-Interactive process viewer (if installed):
-
-```bash
-htop
-```
-
-Useful information:
-
-- CPU usage
-- Memory usage
-- Running processes
-- Process IDs (PID)
-- Scheduler priority
-- Nice value
-
----
-
-## `top` Quick Reference
-
-### Quit
-
-```text
-q
-```
-
----
-
-### Monitor a Specific Process
-
-```bash
-top -p <PID>
-```
-
----
-
-### Batch Mode (Useful for Scripts)
-
-```bash
-top -b
-```
-
----
-
-### Show CPU Usage Per Core
-
-```bash
-top -1
-```
-
----
-
-### Kill a Process
-
-While `top` is running:
-
-```text
-k
-```
-
-Enter the PID and press Enter.
-
----
-
-### Toggle Colors
-
-```text
-z
-```
-
----
-
-## `top` Output
-
-### System Summary
-
-```text
-Tasks: 293 total,   1 running, 292 sleeping,   0 stopped,   0 zombie
-%Cpu(s):  0.4 us,  1.6 sy,  0.0 ni, 96.1 id,  0.0 wa,  0.0 hi,  2.0 si,  0.0 st
-MiB Mem :   3916.7 total,    387.5 free,   1570.2 used,   1959.0 buff/cache
-MiB Swap:   2048.0 total,   1945.5 free,    102.5 used.   2019.1 avail Mem
-```
-
-| Field | Description |
-|--------|-------------|
-| Time | Current system time |
-| Uptime | System uptime |
-| Users | Logged-in users |
-| Load Average | Average system load (1, 5, 15 min) |
-| Tasks | Running, sleeping, stopped, zombie processes |
-| CPU | CPU utilization (`us`, `sy`, `ni`, `id`, `wa`) |
-| Memory | RAM usage |
-| Swap | Swap usage |
-
-### Process Table
-
-| Column | Description |
-|--------|-------------|
-| `PID` | Process ID |
-| `USER` | Process owner |
-| `PR` | Scheduler priority |
-| `NI` | Nice value |
-| `VIRT` | Virtual memory |
-| `RES` | Physical memory (RAM) |
-| `SHR` | Shared memory |
-| `S` | Process state |
-| `%CPU` | CPU usage |
-| `%MEM` | Memory usage |
-| `TIME+` | CPU time consumed |
-| `COMMAND` | Executable name |
-
-### Process States
-
-| State | Meaning |
-|-------|---------|
-| `R` | Running |
-| `S` | Sleeping (interruptible) |
-| `D` | Uninterruptible sleep (usually I/O) |
-| `T` | Stopped/Traced |
-| `Z` | Zombie |
-
----
-
-## Job Control
-
-Suspend foreground process:
-
-```text
-Ctrl+Z
-```
-
-Stop foreground process:
-
-```text
-Ctrl+C
-```
-
-View background jobs:
-
-```bash
-jobs
-```
-
-Show job numbers and PIDs:
-
-```bash
-jobs -l
-```
-
-Resume in background:
-
-```bash
-bg %1
-```
-
-Bring to foreground:
-
-```bash
-fg %1
-```
-
-Run directly in the background:
-
-```bash
-sleep 300 &
-```
-
----
-
-## Terminate Processes
-
-Graceful termination:
-
-```bash
-kill PID
-```
-
-Force kill:
-
-```bash
-kill -9 PID
-```
-
-Kill by name:
-
-```bash
-killall process_name
-```
-
-### Common Signals
-
-| Signal | Description |
-|---------|-------------|
-| `SIGTERM (15)` | Graceful shutdown (default for `kill`) |
-| `SIGKILL (9)` | Immediate termination |
-| `SIGINT (2)` | Interrupt (`Ctrl+C`) |
-| `SIGSTOP (19)` | Pause process |
-
----
-
-## Process Priority (Niceness)
-
-Linux uses **niceness** to influence CPU scheduling priority.
-
-Higher niceness = **lower CPU scheduling priority**
-
-Lower niceness = **higher CPU scheduling priority**
-
-| Nice Value | Priority |
-|------------|----------|
-| `-20` | Highest priority |
-| `0` | Default |
-| `19` | Lowest priority |
-
-Start a command with lower priority:
-
-```bash
-nice -n 10 command
-```
-
-View a process's nice value:
-
-```bash
-ps -o pid,ni,comm
-```
-
-Change an existing process:
-
-```bash
-renice 10 -p PID
-```
-
-> **Remember:** `nice` affects **CPU scheduling priority only**. It does **not** affect memory usage, network priority, disk I/O, or CPU affinity.
-
----
-
-## Platform Engineering Examples
-
-Find a stuck Python process:
-
-```bash
-ps -ef | grep python
-```
-
-or
-
-```bash
-pgrep -a python
-```
-
-Monitor CPU and memory usage:
-
-```bash
-top
-```
-
-Run a low-priority backup:
-
-```bash
-nice -n 19 tar -czf backup.tar.gz mydir/
-```
-
-Terminate a failed deployment:
-
-```bash
-kill PID
-```
-
----
-
-## Troubleshooting Workflow
-
-```text
-Application appears stuck
-        │
-        ▼
-Find the process
-        │
-        ▼
-ps / pgrep
-        │
-        ▼
-Monitor usage
-        │
-        ▼
-top
-        │
-        ▼
-Graceful kill (SIGTERM)
-        │
-        ▼
-Force kill (SIGKILL) if necessary
-```
-
-</details>
-
----
 
 <details>
 <summary><strong>Networking</strong></summary>
 
 ## Purpose
 
-Networking tools help verify connectivity, inspect interfaces, troubleshoot DNS, and test web services.
+Networking tools help verify connectivity, inspect interfaces, troubleshoot DNS, inspect listening services, and test web services.
 
 ---
 
@@ -2006,6 +1641,24 @@ Display interfaces:
 ip addr
 ```
 
+Shortcut:
+
+```bash
+ip a
+```
+
+Show IPv4 addresses only:
+
+```bash
+ip -4 addr
+```
+
+Quickly display assigned IP addresses:
+
+```bash
+hostname -I
+```
+
 Display routing table:
 
 ```bash
@@ -2018,6 +1671,23 @@ Show interface statistics:
 ip -s link
 ```
 
+### Reading `ip addr`
+
+- `inet` → IPv4 address
+- `inet6` → IPv6 address
+- `lo` → Loopback (localhost)
+- `127.0.0.1` → Localhost (IPv4)
+- `::1` → Localhost (IPv6)
+
+Example:
+
+```text
+inet 10.0.2.15/24
+```
+
+- IP Address: `10.0.2.15`
+- `/24` = subnet mask (CIDR)
+
 ---
 
 ## Open Connections
@@ -2028,11 +1698,31 @@ Display listening sockets:
 ss -tuln
 ```
 
-Display listening processes:
+Display listening sockets with owning process:
 
 ```bash
-ss -tulpn
+sudo ss -tulpn
 ```
+
+Options:
+
+| Option | Meaning |
+|---------|---------|
+| `-t` | TCP |
+| `-u` | UDP |
+| `-l` | Listening sockets |
+| `-p` | Show process |
+| `-n` | Numeric addresses/ports |
+
+Example:
+
+```text
+tcp LISTEN 0 128 [::]:22
+```
+
+- `LISTEN` → Waiting for connections
+- `22` → SSH
+- `[::]` → All IPv6 interfaces
 
 Legacy equivalent:
 
@@ -2044,10 +1734,16 @@ netstat -tuln
 
 ## DNS
 
-Lookup a hostname:
+Detailed lookup:
 
 ```bash
 dig github.com
+```
+
+Short answer only:
+
+```bash
+dig +short github.com
 ```
 
 Alternative:
@@ -2055,6 +1751,23 @@ Alternative:
 ```bash
 nslookup github.com
 ```
+
+### Reading `nslookup`
+
+```text
+Server: 127.0.0.53
+Address: 127.0.0.53#53
+
+Non-authoritative answer:
+Name: github.com
+Address: 140.82.116.4
+```
+
+- **Server** → DNS server that answered the request
+- **127.0.0.53** → Local DNS resolver (`systemd-resolved`)
+- **Port 53** → Standard DNS port
+- **Address** → Resolved IP address
+- **Non-authoritative** → Answer came from a recursive/caching DNS server
 
 ---
 
@@ -2081,13 +1794,19 @@ curl -v https://api.github.com
 Determine whether an application is listening:
 
 ```bash
-ss -tulpn
+sudo ss -tulpn
 ```
 
 Determine whether DNS is working:
 
 ```bash
 dig company.internal
+```
+
+Resolve a hostname:
+
+```bash
+dig +short company.internal
 ```
 
 ---
@@ -2160,23 +1879,29 @@ dig
 
 ### `curl` vs `wget`
 
-- `curl` → APIs, HTTP requests, testing endpoints
+- `curl` → APIs, test endpoints, inspect HTTP requests
 - `wget` → Download files
 
 ---
 
 ### `ss` vs `netstat`
 
-- `ss` → Modern replacement
-- `netstat` → Legacy tool
+- `ss` → Modern, faster, more detailed (preferred)
+- `netstat` → Legacy networking tool
 
 ---
 
 ### `dig` vs `nslookup`
 
-- `dig` → Detailed DNS troubleshooting
-- `nslookup` → Simple DNS lookups
+- `dig` → Detailed DNS diagnostics (preferred)
+- `nslookup` → Simple hostname lookups
 
-</details>
+---
+
+### `127.0.0.1` vs `0.0.0.0` vs `[::]`
+
+- `127.0.0.1` → Localhost only (IPv4)
+- `0.0.0.0` → All IPv4 interfaces
+- `[::]` → All IPv6 interfaces
 
 </details>
