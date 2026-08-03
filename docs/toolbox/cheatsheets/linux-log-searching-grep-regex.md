@@ -133,6 +133,155 @@ find . -name "*.log" -print0 | xargs -0 grep "ERROR"
 
 ---
 
+<details>
+<summary><strong>Common grep Mistakes</strong></summary>
+
+## BRE vs ERE Quantifiers
+
+Default `grep` uses **Basic Regular Expressions (BRE)**.
+
+Escape quantifiers:
+
+```bash
+grep "[0-9]\{4\}"
+```
+
+With **Extended Regular Expressions (ERE)**:
+
+```bash
+grep -E "[0-9]{4}"
+```
+
+No escaping required.
+
+---
+
+## `*` is NOT a wildcard
+
+Many beginners confuse shell globs with regex.
+
+| Shell Glob | Regex |
+|------------|-------|
+| `*` | `.*` |
+
+Examples:
+
+```text
+*.log      # Shell: any filename ending in .log
+
+.*ERROR.*  # Regex: any characters before/after ERROR
+```
+
+Remember:
+
+- `.` = any single character
+- `*` = zero or more of the previous pattern
+- `.*` = zero or more of any character
+
+---
+
+## Spaces Around `|`
+
+Inside a regex, spaces are literal.
+
+Correct:
+
+```bash
+grep -E "ERROR|WARNING"
+```
+
+Incorrect:
+
+```bash
+grep -E "ERROR | WARNING"
+```
+
+The second searches for:
+
+```
+ERROR<space>
+```
+
+or
+
+```
+<space>WARNING
+```
+
+---
+
+## grep Defaults
+
+`grep` already searches **anywhere on the line**.
+
+These are equivalent:
+
+```bash
+grep ERROR app.log
+```
+
+```bash
+grep ".*ERROR.*" app.log
+```
+
+The first is simpler and preferred.
+
+---
+
+## grep Pipelines
+
+Only the **first** command typically reads the file.
+
+Correct:
+
+```bash
+grep ERROR app.log | grep Database
+```
+
+Incorrect:
+
+```bash
+grep ERROR app.log | grep Database app.log
+```
+
+The second `grep` ignores the piped input and searches the file again.
+
+---
+
+## grep or awk?
+
+General guideline:
+
+- `grep` → Find matching lines or text
+- `awk` → Extract or manipulate structured fields
+
+Example:
+
+```bash
+awk '{print $1}' logs/access.log
+```
+
+`awk` automatically splits each line into fields using whitespace by default.
+```bash 
+$1 = 2026-08-02
+$2 = 20:30:05
+$3 = POST
+$4 = /api/upload
+$5 = 500
+```
+
+Output:
+
+```bash
+2026-08-02 20:30:05
+```
+
+is usually simpler than writing a regex to extract timestamps.
+
+</details>
+
+---
+
 # 8. Common Log Searches
 
 ## Find all ERROR messages
