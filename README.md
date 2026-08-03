@@ -75,36 +75,7 @@ Diagnose and repair common Linux system issues.
 
 ---
 
-## Week 3 – Git & Docker
-
-**Objective**
-
-Learn the development workflow used by platform engineering teams.
-
-### Git
-
-- Branching
-- Merging
-- Rebasing
-- Pull Requests
-- Merge conflicts
-
-### Docker
-
-- Images
-- Containers
-- Dockerfiles
-- Volumes
-- Environment variables
-- Container debugging
-
-### Project
-
-Containerize the Python automation project.
-
----
-
-## Week 4 – CI/CD with GitHub Actions
+## Week 3 – CI/CD with GitHub Actions
 
 ### Objective
 
@@ -140,9 +111,10 @@ Create a GitHub Actions pipeline that:
 - Builds the Docker image
 - Uploads reports as workflow artifacts
 - Prevents merging when checks fail
+
 ---
 
-## Week 5 – Terraform
+## Week 4 – Terraform
 
 **Objective**
 
@@ -162,6 +134,35 @@ Review Infrastructure as Code.
 ### Project
 
 Deploy AWS infrastructure using reusable Terraform modules.
+
+---
+
+## Week 5 – Git Review & Docker
+
+**Objective**
+
+Learn the development workflow used by platform engineering teams.
+
+### Git
+
+- Branching
+- Merging
+- Rebasing
+- Pull Requests
+- Merge conflicts
+
+### Docker
+
+- Images
+- Containers
+- Dockerfiles
+- Volumes
+- Environment variables
+- Container debugging
+
+### Project
+
+Containerize the Python automation project.
 
 ---
 
@@ -219,11 +220,11 @@ platform-engineering-bootcamp/
 │
 ├── week02-linux/
 │
-├── week03-git-docker/
+├── week03-cicd/ 
 │
-├── week04-cicd/
+├── week04-terraform/
 │
-├── week05-terraform/
+├── week05-git-docker/
 │
 ├── week06-aws/
 │
