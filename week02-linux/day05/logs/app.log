@@ -1,0 +1,7 @@
+2026-08-02 18:20:01 INFO Application started
+2026-08-02 18:20:04 INFO Database connection established
+2026-08-02 18:20:09 WARNING Disk usage above 75%
+2026-08-02 18:22:30 INFO User login successful
+2026-08-02 18:22:45 WARNING Memory usage above 80%
+2026-08-02 18:23:01 ERROR Database connection timeout
+2026-08-02 18:23:10 INFO Retry succeeded
