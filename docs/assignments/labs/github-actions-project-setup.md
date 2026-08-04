@@ -1,4 +1,4 @@
-# Project 1 - GitHub Actions CI/CD
+# Project 3 - GitHub Actions CI/CD
 ## Part 1 - Project Setup
 
 ## Objective
