@@ -18,7 +18,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: projects/github-actions-python-demo
+        working-directory: week03-cicd/projects/github-actions-python-demo
 
     steps:
       - name: Check out repository
