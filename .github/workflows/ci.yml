@@ -104,3 +104,9 @@ jobs:
      
       - name: Build ready
         run: echo "All validation jobs passed. Ready to build."
+
+      - name: Upload build report
+        uses: actions/upload-artifact@v4
+        with:
+            name: build-report
+            path: projects/github-actions-python-demo/reports/build-report.txt
