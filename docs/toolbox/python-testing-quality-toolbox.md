@@ -4,7 +4,8 @@ Quick reference for common Python development tools used in CI/CD pipelines.
 
 ---
 
-# Development Workflow
+<details>
+<summary><strong>Development Workflow</strong></summary>
 
 Typical local workflow:
 
@@ -15,7 +16,13 @@ Write code
 Run Ruff
       │
       ▼
-Fix style issues
+Fix linting issues
+      │
+      ▼
+Run Compileall
+      │
+      ▼
+Fix syntax errors
       │
       ▼
 Run Pytest
@@ -33,9 +40,162 @@ Push
 GitHub Actions runs the same commands
 ```
 
+</details>
+
 ---
 
-# Pytest
+<details>
+<summary><strong>Ruff</strong></summary>
+
+## Purpose
+
+Ruff is a Python **linter**.
+
+It checks:
+
+- Code quality
+- Style
+- Common mistakes
+- Potential bugs
+- Some syntax-related issues
+
+Think:
+
+> **Is my code written well?**
+
+It does **not** verify that the program behaves correctly.
+
+---
+
+## Common Commands
+
+Check the project:
+
+```bash
+ruff check .
+```
+
+Format code:
+
+```bash
+ruff format .
+```
+
+Check a specific file:
+
+```bash
+ruff check app/validator.py
+```
+
+Output example:
+
+```text
+All checks passed!
+```
+
+---
+
+## Where should I run Ruff?
+
+Run Ruff from the project root.
+
+Example:
+
+```text
+github-actions-python-demo/
+│
+├── app/
+├── tests/
+└── README.md
+```
+
+```bash
+cd github-actions-python-demo
+
+ruff check .
+```
+
+The `.` means:
+
+> Check the current directory recursively.
+
+</details>
+
+---
+
+<details>
+<summary><strong>Compileall</strong></summary>
+
+## Purpose
+
+`compileall` attempts to compile every Python file into Python bytecode.
+
+It verifies that Python can successfully parse every source file.
+
+Think:
+
+> **Can Python understand my code?**
+
+It catches problems such as:
+
+- Missing colons
+- Invalid indentation
+- Missing parentheses
+- Invalid syntax
+- Other parser errors
+
+It **does not** execute your application or verify that your logic is correct.
+
+---
+
+## Common Commands
+
+Compile the current project:
+
+```bash
+python -m compileall .
+```
+
+Compile a specific directory:
+
+```bash
+python -m compileall app
+```
+
+Compile a specific file:
+
+```bash
+python -m compileall app/validator.py
+```
+
+Successful output:
+
+```text
+Listing '.'...
+Compiling 'app/validator.py'...
+```
+
+If a syntax error exists:
+
+```text
+SyntaxError: expected ':'
+```
+
+---
+
+## Why use Compileall?
+
+Unlike pytest, `compileall` checks **every Python file**, even files that your tests never import.
+
+It is a very fast syntax validation step that provides confidence that the entire codebase is syntactically valid.
+
+
+</details>
+
+---
+
+<details>
+<summary><strong>Pytest</strong></summary>
 
 ## Purpose
 
@@ -71,18 +231,18 @@ python -m pytest tests/test_validator.py::test_valid_environments
 
 Output example:
 
-```bash
-
+```text
 ...
 
-collected 3 items                                                                               
+collected 3 items
 
-tests/test_validator.py::test_valid_environments PASSED                                   [ 33%]
-tests/test_validator.py::test_invalid_environment PASSED                                  [ 66%]
-tests/test_validator.py::test_environment_is_case_insensitive PASSED                      [100%]
+tests/test_validator.py::test_valid_environments PASSED
+tests/test_validator.py::test_invalid_environment PASSED
+tests/test_validator.py::test_environment_is_case_insensitive PASSED
 
 ======================================= 3 passed in 0.01s =======================================
 ```
+
 ---
 
 ## Why `python -m pytest`?
@@ -120,129 +280,26 @@ The test:
 2. Compares the result.
 3. Reports PASS or FAIL.
 
----
 
-# Ruff
-
-## Purpose
-
-Ruff is a Python **linter**.
-
-It checks:
-
-- Code quality
-- Style
-- Common mistakes
-- Potential bugs
-
-Think:
-
-> **Is my code written well?**
-
-It does **not** verify that the program behaves correctly.
+</details>
 
 ---
 
-## Common Commands
+<details>
+<summary><strong>Tool Comparison</strong></summary>
 
-Check the project:
+| Tool | Primary Question | Executes Code? |
+|------|------------------|----------------|
+| Ruff | Is the code written well? | No |
+| Compileall | Can Python understand the code? | No |
+| Pytest | Does the application behave correctly? | Yes |
 
-```bash
-ruff check .
-```
-
-Format code:
-
-```bash
-ruff format .
-```
-
-Check a specific file:
-
-```bash
-ruff check app/validator.py
-```
-
-Output example:
-
-```bash
-All checks passed!
-```
+</details>
 
 ---
 
-## Where should I run Ruff?
-
-Run Ruff from the project root.
-
-Example:
-
-```text
-github-actions-python-demo/
-│
-├── app/
-├── tests/
-└── README.md
-```
-
-```bash
-cd github-actions-python-demo
-
-ruff check .
-```
-
-The `.` means:
-
-> Check the current directory recursively.
-
----
-
-# Pytest vs Ruff
-
-| Pytest | Ruff |
-|---------|------|
-| Tests application behavior | Checks code quality |
-| Executes test files | Analyzes source code |
-| Finds bugs | Finds style and quality issues |
-| Uses `assert` | Uses linting rules |
-
----
-
-# Local Development Workflow
-
-Every code change should follow this process:
-
-```bash
-ruff check .
-
-python -m pytest -v
-```
-
-If both succeed:
-
-```bash
-git add .
-git commit -m "..."
-git push
-```
-
-GitHub Actions will later execute the same commands automatically.
-
----
-
-# Mental Model
-
-| Tool | Purpose |
-|------|---------|
-| `python` | Run the application |
-| `pytest` | Verify the application works correctly |
-| `ruff` | Verify the source code follows quality rules |
-| `git` | Version control |
-| GitHub Actions | Automate the entire workflow |
-
----
-
-# CI/CD Relationship
+<details>
+<summary><strong>CI/CD Relationship</strong></summary>
 
 ```text
 Developer
@@ -251,10 +308,16 @@ Developer
 Write Code
       │
       ▼
-Run Ruff
+Ruff
+(Code quality)
       │
       ▼
-Run Pytest
+Compileall
+(Syntax validation)
+      │
+      ▼
+Pytest
+(Behavior testing)
       │
       ▼
 Commit
@@ -266,8 +329,11 @@ Push
 GitHub Actions
       │
       ├── Ruff
+      ├── Compileall
       └── Pytest
       │
       ▼
 Merge if successful
 ```
+
+</details>
