@@ -105,6 +105,15 @@ jobs:
       - name: Build ready
         run: echo "All validation jobs passed. Ready to build."
 
+      - name: Create build report
+        run: |
+          mkdir -p reports
+          echo "Python CI Report" > reports/build-report.txt
+          echo "Workflow completed successfully." >> reports/build-report.txt
+          echo "Lint: PASS" >> reports/build-report.txt
+          echo "Tests: PASS" >> reports/build-report.txt
+          echo "Validation: PASS" >> reports/build-report.txt
+
       - name: Upload build report
         uses: actions/upload-artifact@v4
         with:
