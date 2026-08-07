@@ -79,7 +79,7 @@ jobs:
 
       - name: Run validation tests
         run: |
-          python -c "from app.validator import validate_environment; assert validate_environment('production')"
+          python -c "from app.validator import validate_environment; assert validate_environment('invalid')"
 
   build:
     needs:
