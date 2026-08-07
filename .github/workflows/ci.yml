@@ -5,10 +5,9 @@ on:
     branches:
       - main
       - week3-cicd
-
-  pull_request:
-    branches:
-      - main
+    paths-ignore:
+      - "README.md"
+      - "**/*.md"
 
   workflow_dispatch:
 
