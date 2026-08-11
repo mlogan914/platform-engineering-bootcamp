@@ -1,4 +1,4 @@
-# Part 2 - Continuous Integration (GitHub Actions)
+# Stage 1 - Continuous Integration (GitHub Actions)
 
 ## Objective
 

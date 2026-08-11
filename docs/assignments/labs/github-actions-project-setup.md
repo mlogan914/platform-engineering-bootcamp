@@ -1,5 +1,5 @@
 # Project 3 - GitHub Actions CI/CD
-## Part 1 - Project Setup
+## Project Setup
 
 ## Objective
 
