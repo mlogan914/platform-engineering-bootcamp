@@ -8,7 +8,7 @@ The goal is to understand how modern engineering teams automatically validate, t
 
 By the end of this project, I should be comfortable reading, modifying, and creating GitHub Actions workflows commonly found in Platform Engineering repositories.
 
-> *** See assignment labs and notes [HERE](../labs/)
+> *** See assignment labs and notes [HERE](./labs/)
 
 ---
 
