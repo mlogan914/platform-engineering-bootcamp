@@ -11,7 +11,7 @@ def test_valid_environments() -> None:
 
 def test_invalid_environment() -> None:
     assert not validate_environment("test")
-
+    
 
 def test_environment_is_case_insensitive() -> None:
     assert validate_environment("PRODUCTION")
